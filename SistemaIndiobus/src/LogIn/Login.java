@@ -5,6 +5,9 @@
  */
 package LogIn;
 
+import conectame.Conexion;
+import java.sql.Connection;
+
 /**
  *
  * @author compu
@@ -16,8 +19,26 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
+        iniciarComponentes();
     }
-
+    void iniciarComponentes()
+    {
+        iniciarBaseDatos();
+    }
+        Conexion conexion = new Conexion();
+        private Connection miConexion = null;
+        
+    void iniciarBaseDatos(){
+        conexion.setUsuario("lc78dKy0WL");
+        conexion.setPassword("o4sjumW5GZ");
+        conexion.setTipo("mysql");
+        conexion.setURL("remotemysql.com");
+        conexion.setPuerto(3306);
+        conexion.setDbase("lc78dKy0WL");
+        conexion.setOpciones("autoReconnect=true&useSSL=false");
+        //Se manada a llamar la conexion
+        miConexion = conexion.conexionDB();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

@@ -8,9 +8,7 @@ import java.sql.DriverManager;
 // Permite controlar las excepciones de las solicitudes enviadas
 import java.sql.SQLException;
 // Guarda un registro de los problemas asignados por niveles
-import java.util.logging.Level;
-// Guarda los registros de las transacciones
-import java.util.logging.Logger;
+
 
 public class Conexion {
         //Variable de conexion
