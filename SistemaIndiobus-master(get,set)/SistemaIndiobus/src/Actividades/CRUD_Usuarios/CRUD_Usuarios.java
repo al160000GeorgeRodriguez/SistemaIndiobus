@@ -52,43 +52,43 @@ public class CRUD_Usuarios extends javax.swing.JFrame {
         this.id_usuario = id_usuario;
     }
 
-    protected int getMatricula() {
+    public int getMatricula() {
         return matricula;
     }
 
-    protected void setMatricula(int matricula) {
+    public void setMatricula(int matricula) {
         this.matricula = matricula;
     }
 
-    protected String getPassword() {
+    public String getPassword() {
         return password;
     }
 
-    protected void setPassword(String password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 
-    private String getNombre() {
+     public String getNombre() {
         return nombre;
     }
 
-    private void setNombre(String nombre) {
+    public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
-    private String getApellido() {
+    public  String getApellido() {
         return apellido;
     }
 
-    private void setApellido(String apellido) {
+    public  void setApellido(String apellido) {
         this.apellido = apellido;
     }
 
-     String getTipousuario() {
+     public  String getTipousuario() {
         return tipousuario;
     }
 
-    void setTipousuario(String tipousuario) {
+    public void setTipousuario(String tipousuario) {
         this.tipousuario = tipousuario;
     }
 
