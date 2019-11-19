@@ -55,4 +55,19 @@ public class Tablas {
         }
     return false;
     }
+    
+    public boolean CrearTablaCRUDDatos(Connection conexion) {
+        String crearUnaTabla = "create table CRUD_Datos(ID_Registro int unsigned auto_increment, Hora varchar(20) not null, Fecha varchar(20) not null,   Estatus varchar(100), Ruta varchar(100), Matricula mediumint unsigned,NumCamion mediumint unsigned,  primary key(ID_Registro) );";
+        BorrarTabla(conexion);
+        try {
+            // Se genera la sentencia
+            PreparedStatement sentencia = conexion.prepareStatement(crearUnaTabla);
+            int res = sentencia.executeUpdate();
+            return true;
+        } catch (SQLException sqle) {
+            // solo depuracion se genera el codigo de error
+            System.out.println("Instrucción incorrecta:" + sqle.getErrorCode() + " " + sqle.getMessage());
+        }
+        return false;
+    }
 }
