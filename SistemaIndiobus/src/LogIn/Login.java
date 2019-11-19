@@ -40,7 +40,7 @@ public class Login extends javax.swing.JFrame {
         conexion.setOpciones("autoReconnect=true&useSSL=false");
         //Se manada a llamar la conexion
         miConexion = conexion.conexionDB();
-        tabla.CrearTablaUsuario(miConexion);
+        tabla.LlenarTablaUsuarios(miConexion);
         conexion.cerrarConexion();
     }
     
