@@ -41,6 +41,7 @@ public class Login extends javax.swing.JFrame {
         //Se manada a llamar la conexion
         miConexion = conexion.conexionDB();
         tabla.LlenarTablaUsuarios(miConexion);
+        tabla.LlenarTablaCRUDDatos(miConexion);
         conexion.cerrarConexion();
     }
     

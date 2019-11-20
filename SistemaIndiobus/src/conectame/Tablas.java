@@ -73,22 +73,33 @@ public class Tablas {
     public boolean LlenarTablaCRUDDatos(Connection conexion) {
         Random rnd = new Random();
         
-        String nombreAle[] = { "Jaime", "Javier", "Juan", "Rodolfo", "Dexter", "Dulce", "Salvador", "Penelope", "Sara",
-                "José" };
-        String apellidoAle[] = { "Soria", "Smith", "Chilorio", "Sulvarán", "Cruz", "Chuk", "Corsario", "Chong",
-                "Jimenez", "Gutierrez", "Fernández", "Hernández", "López", "Vázquez", "Rocha", "Slim" };
-        String nom = nombreAle[rnd.nextInt(9)], ase = nombreAle[rnd.nextInt(9)];
-        String apeP = apellidoAle[rnd.nextInt(15)], apeM = apellidoAle[rnd.nextInt(15)];
-        String tel;
-        Integer num, nRegistros;
-
-        do {
-            num = rnd.nextInt(9999999);
-        } while (num < 999999);
-        tel = Integer.toString(num);
-               String dataTemporalC = "INSERT INTO lc78dKy0WL.CRUD_Datos (ID_Registro, Hora, Fecha,Estatus,Ruta,Matricula,NumCamion) VALUES "
-                + "('" + nom + "','" + apeP + "','" + apeM + "', '(656)" + tel + "','" + nom + "_" + apeP + "_" + apeM
-                + "@correo.com','" + ase + "')";
+        String matricula[] = { "8632531", "2312931", "9851538", "3698565", "1788656", "9655666", "3542555", "1454556", "9867532",
+                "3652545" };
+        String status[] = { "Entrada", "Salida" };
+        String rutas[] = { "Torres Henequen", "Torres libramiento","Plaza Juarez", "Independencia",
+                "Misiones", "Aztecas", "Centro", "Panamericana" };
+        
+        String mat = matricula[rnd.nextInt(9)];
+        String sta = status[rnd.nextInt(1)];
+        String rut = rutas[rnd.nextInt(7)];
+        String hora,fecha,camion;
+        Integer num;
+        do{
+       num = rnd.nextInt(20);
+        } while(num<8);
+        hora = Integer.toString(num);
+        
+        do {   
+            num = rnd.nextInt(9999);
+        } while (num < 100);
+        camion = Integer.toString(num);
+            num = rnd.nextInt(27)+1;
+        fecha = Integer.toString(num) + "/";
+            num = rnd.nextInt(11)+1;
+        fecha += Integer.toString(num) + "/19";
+        
+               String dataTemporalC = "INSERT INTO lc78dKy0WL.CRUD_Datos(Hora, Fecha,Estatus,Ruta,Matricula,NumCamion) VALUES "
+                + "('" + hora + "','" + fecha+ "','" + sta + "', '" + rut + "','" + mat +"','" + camion + "');";
         try {
             // Se genera la sentencia
             PreparedStatement sentencia = conexion.prepareStatement(dataTemporalC);
@@ -100,24 +111,25 @@ public class Tablas {
         }
         return false;
     }
+
     public boolean LlenarTablaUsuarios(Connection conexion) {
         Random rnd = new Random();
-        
-        String nombreAle[] = { "Jaime","Evo","Andrés","Felipe","Vicente","Javier", "Juan", "Rodolfo", "Dexter", "Dulce", "Salvador", "Penelope", "Sara",
-                "José" };
+
+        String nombreAle[] = { "Jaime", "Evo", "Andrés", "Felipe", "Vicente", "Javier", "Juan", "Rodolfo", "Dexter",
+                "Dulce", "Salvador", "Penelope", "Sara", "José" };
         String apellidoAle[] = { "Soria", "Smith", "Chilorio", "Sulvarán", "Cruz", "Chuk", "Corsario", "Chong",
                 "Jimenez", "Gutierrez", "Fernández", "Hernández", "López", "Vázquez", "Rocha", "Slim" };
-        String nom = nombreAle[rnd.nextInt(9)], ase = nombreAle[rnd.nextInt(9)];
+        String nom = nombreAle[rnd.nextInt(11)], ase = nombreAle[rnd.nextInt(11)];
         String apeP = apellidoAle[rnd.nextInt(15)], apeM = apellidoAle[rnd.nextInt(15)];
         String mat;
         Integer num;
 
         do {
             num = rnd.nextInt(200000);
-        } while (!(num>10000 && num < 200000));
+        } while (!(num > 10000 && num < 200000));
         mat = Integer.toString(num);
-               String dataTemporalC = "INSERT INTO lc78dKy0WL.Usuarios( Matricula, Password,Nombre,Apellido,TipoUsuario) VALUES "
-                + "('" + mat + "','" + nom + "123" + "','" + nom + "','" + apeP +" "+ apeM + "','" + "Alumno" + "');";
+        String dataTemporalC = "INSERT INTO lc78dKy0WL.Usuarios( Matricula, Password,Nombre,Apellido,TipoUsuario) VALUES "
+                + "('" + mat + "','" + nom + "123" + "','" + nom + "','" + apeP + " " + apeM + "','" + "Alumno" + "');";
         try {
             // Se genera la sentencia
             PreparedStatement sentencia = conexion.prepareStatement(dataTemporalC);
@@ -128,5 +140,9 @@ public class Tablas {
             System.out.println("Instrucción incorrecta:" + sqle.getErrorCode() + " " + sqle.getMessage());
         }
         return false;
+    }
+    
+    public boolean login(Connection conexion) {
+
     }
 }
