@@ -20,6 +20,8 @@ import java.sql.Statement;
 import java.util.Random;
 //genera numeros aleatorios
 
+import Actividades.CRUD_Usuarios.Usuarios;
+
 
 /**
  *
@@ -126,7 +128,7 @@ public class Tablas {
 
         do {
             num = rnd.nextInt(200000);
-        } while (!(num > 10000 && num < 200000));
+        } while (!(num > 100000 && num < 200000));
         mat = Integer.toString(num);
         String dataTemporalC = "INSERT INTO lc78dKy0WL.Usuarios( Matricula, Password,Nombre,Apellido,TipoUsuario) VALUES "
                 + "('" + mat + "','" + nom + "123" + "','" + nom + "','" + apeP + " " + apeM + "','" + "Alumno" + "');";
@@ -142,7 +144,19 @@ public class Tablas {
         return false;
     }
     
-    public boolean login(Connection conexion) {
-
+    public boolean login(Connection conexion,Usuarios usuario) {
+        ResultSet rs = null;
+        String base = "SELECT password FROM lc78dKy0WL.Usuarios WHERE matricula='"+usuario.getMatricula()+"'";
+        //Se conjunta la base con la estructura elegida
+        try {
+            PreparedStatement sentencia = conexion.prepareStatement(base);
+            rs = sentencia.executeQuery(base);
+            while (rs.next()) {
+                System.out.println("Base de datos="+rs.getString("Password"));
+                if (rs.getString("Password").equals(usuario.getPassword())) return true;
+            }
+        } catch (SQLException sqle) {
     }
+        return false;
+}
 }

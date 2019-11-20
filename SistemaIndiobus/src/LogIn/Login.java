@@ -9,6 +9,8 @@ import conectame.Conexion;
 import conectame.Tablas;
 import java.sql.Connection;
 
+import Actividades.CRUD_Usuarios.Usuarios;
+
 /**
  *
  * @author compu
@@ -25,12 +27,13 @@ public class Login extends javax.swing.JFrame {
     void iniciarComponentes()
     {
         iniciarBaseDatos();
+        cerrarConexion();
     }
         Conexion conexion = new Conexion();
         private Connection miConexion = null;
     Tablas tabla = new Tablas();
         
-    void iniciarBaseDatos(){
+    void iniciarBaseDatos() {
         conexion.setUsuario("lc78dKy0WL");
         conexion.setPassword("o4sjumW5GZ");
         conexion.setTipo("mysql");
@@ -42,9 +45,13 @@ public class Login extends javax.swing.JFrame {
         miConexion = conexion.conexionDB();
         tabla.LlenarTablaUsuarios(miConexion);
         tabla.LlenarTablaCRUDDatos(miConexion);
-        conexion.cerrarConexion();
+
     }
-    
+
+    void cerrarConexion() {
+          conexion.cerrarConexion();  
+    }
+
     /**
      * C:\Users\Geo\.m2\repository\mysql\mysql-connector-java\8.0.11\mysql-connector-java-8.0.11.jar
      * This method is called from within the constructor to initialize the form.
@@ -71,20 +78,25 @@ public class Login extends javax.swing.JFrame {
         setBackground(new java.awt.Color(0, 0, 153));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        user.setText("150204");
+        user.setText("12491");
         user.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 userActionPerformed(evt);
             }
         });
 
-        password.setText("jPasswordField1");
+        password.setText("Jaime123");
 
         jLabel1.setText("Usuario:");
 
         jLabel2.setText("Contraseña:");
 
         Iniciar.setText("Iniciar");
+        Iniciar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                IniciarActionPerformed(evt);
+            }
+        });
 
         Salir.setBackground(new java.awt.Color(0, 51, 255));
         Salir.setForeground(new java.awt.Color(51, 51, 255));
@@ -150,6 +162,21 @@ public class Login extends javax.swing.JFrame {
     private void userActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_userActionPerformed
+
+    private void IniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IniciarActionPerformed
+        iniciarBaseDatos();
+        
+        Usuarios usuario = new Usuarios();
+        Tablas tabla = new Tablas();
+        usuario.setMatricula(user.getText());
+        usuario.setPassword(password.getText());
+        System.out.println(usuario.getPassword());
+        if (tabla.login(miConexion, usuario))
+            System.out.println("Aceptado");
+            else 
+            System.out.println("Rechazado");
+        cerrarConexion();
+    }//GEN-LAST:event_IniciarActionPerformed
 
     /**
      * @param args the command line arguments
