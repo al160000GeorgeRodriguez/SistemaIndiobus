@@ -5,7 +5,17 @@
  */
 package Actividades;
 
+
+//import com.mysql.jdbc.Connection;
+import Actividades.CRUD_Usuarios.CRUD_Usuarios;
 import Menu.Menu;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import java.sql.PreparedStatement;
+import conectame.Conexion;
+import java.sql.Connection;
+import java.util.ArrayList;
 /**
  *
  * @author compu
@@ -27,10 +37,14 @@ public class CrudDatos extends javax.swing.JFrame {
     String consecionaria;
     int matricula;//matricula de los alumnos que abordan indiobus
     int numcamion;//numero de undiobus 
-//constructor
-    /*
+    ArrayList<CrudDatos> lista = new ArrayList<CrudDatos>();
+
+        
+//constructorIDCrudDatos
+    
+    
     public CrudDatos(int IDcruddatos, String hora, String fecha, String estatus, String ruta, String consecionaria, int matricula, int numcamion) {
-        this.IDcruddatos = IDcruddatos;
+        this.ID_Registro = IDcruddatos;
         this.hora = hora;
         this.fecha = fecha;
         this.estatus = estatus;
@@ -38,7 +52,7 @@ public class CrudDatos extends javax.swing.JFrame {
         this.consecionaria = consecionaria;
         this.matricula = matricula;
         this.numcamion = numcamion;
-    }*/
+    }
 
     public int getIDcruddatos() {
         return ID_Registro;
@@ -90,10 +104,13 @@ public class CrudDatos extends javax.swing.JFrame {
 
     public int getMatricula() {
         return matricula;
+       
     }
 
     public void setMatricula(int matricula) {
+        
         this.matricula = matricula;
+        
     }
 
     public int getNumcamion() {
@@ -113,8 +130,6 @@ public class CrudDatos extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
-        buttonGroup2 = new javax.swing.ButtonGroup();
         IDCrudDatos = new javax.swing.JTextField();
         HoraCrudDatos = new javax.swing.JTextField();
         ID = new javax.swing.JLabel();
@@ -128,22 +143,27 @@ public class CrudDatos extends javax.swing.JFrame {
         Concesionaria = new javax.swing.JTextField();
         MatriculaCrudDatos = new javax.swing.JTextField();
         NoCamion = new javax.swing.JTextField();
-        Entrada = new javax.swing.JRadioButton();
-        Salida = new javax.swing.JRadioButton();
         guardar = new javax.swing.JButton();
         regresar = new javax.swing.JButton();
         buscar = new javax.swing.JButton();
         modificar = new javax.swing.JButton();
         eliminar = new javax.swing.JButton();
-        ComboBox1 = new javax.swing.JComboBox<>();
+        Ruta = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        Fecha = new javax.swing.JSpinner();
+        Estatus = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         IDCrudDatos.setText("1");
 
         HoraCrudDatos.setText("jTextField2");
+        HoraCrudDatos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                HoraCrudDatosActionPerformed(evt);
+            }
+        });
 
         ID.setText("ID:");
 
@@ -182,15 +202,6 @@ public class CrudDatos extends javax.swing.JFrame {
             }
         });
 
-        Entrada.setText("Entrada");
-        Entrada.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EntradaActionPerformed(evt);
-            }
-        });
-
-        Salida.setText("Salida");
-
         guardar.setText("Guardar");
         guardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -206,12 +217,27 @@ public class CrudDatos extends javax.swing.JFrame {
         });
 
         buscar.setText("Buscar");
+        buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscarActionPerformed(evt);
+            }
+        });
 
         modificar.setText("Modificar");
+        modificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modificarActionPerformed(evt);
+            }
+        });
 
         eliminar.setText("Eliminar");
 
-        ComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        Ruta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        Ruta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RutaActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -252,14 +278,18 @@ public class CrudDatos extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
+        Fecha.setModel(new javax.swing.SpinnerDateModel());
+
+        Estatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "entrada", "salida", " " }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(39, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 599, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(21, 21, 21)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 583, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -270,24 +300,23 @@ public class CrudDatos extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(MatriculaCrudDatos, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
                                     .addComponent(Concesionaria)))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addComponent(jLabel1)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(HoraCrudDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                 .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
                                                 .addComponent(ID, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGap(55, 55, 55)
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(Entrada)
-                                                .addComponent(Salida)))
-                                        .addComponent(jLabel4))
-                                    .addGap(50, 50, 50))))
+                                            .addComponent(jLabel4))
+                                        .addGap(77, 77, 77)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(Fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(HoraCrudDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(Estatus, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(56, 56, 56))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -308,15 +337,15 @@ public class CrudDatos extends javax.swing.JFrame {
                                     .addComponent(modificar)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(16, 16, 16)
-                                .addComponent(ComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(Ruta, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(55, 55, 55))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(48, 48, 48)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(48, 48, 48)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(ID)
                             .addComponent(IDCrudDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -325,17 +354,17 @@ public class CrudDatos extends javax.swing.JFrame {
                             .addComponent(jLabel1)
                             .addComponent(HoraCrudDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(Fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
-                            .addComponent(Entrada))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(Salida)
-                        .addGap(1, 1, 1)
+                            .addComponent(Estatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(32, 32, 32)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
-                            .addComponent(ComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(Ruta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(29, 29, 29)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(Concesionaria, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -358,19 +387,48 @@ public class CrudDatos extends javax.swing.JFrame {
                             .addComponent(modificar))
                         .addGap(23, 23, 23)
                         .addComponent(eliminar))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 504, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(81, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 572, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void EntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EntradaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_EntradaActionPerformed
-
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
-        // TODO add your handling code here:
+        CrudDatos crud= new  CrudDatos( Integer.parseInt(IDCrudDatos.getText()),HoraCrudDatos.getText(),Fecha.getName(),Estatus.getSelectedItem().toString(),Ruta.getSelectedItem().toString(),Concesionaria.getText(),Integer.parseInt(MatriculaCrudDatos.getText()),Integer.parseInt(NoCamion.getText()));
+       
+        lista.add(crud);
+        
+        Object matris[][] = new Object [lista.size()][8];
+      
+       
+        
+        for(int i=0; i<lista.size(); i++){
+           
+            
+            matris[i][0]=lista.get(i).getIDcruddatos();
+            matris[i][1]=lista.get(i).getHora();
+            matris[i][2]=lista.get(i).getFecha();
+            matris[i][3]=lista.get(i).getEstatus();
+            matris[i][4]=lista.get(i).getRuta();
+            matris[i][5]=lista.get(i).getConsecionaria();
+            matris[i][6]=lista.get(i).getMatricula();
+            matris[i][7]=lista.get(i).getNumcamion();
+           
+        }
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            matris,
+            new String [] {
+                "ID", "Hora", "Fecha", "Estatus", "Ruta", "Concesionaria", "Matricula", "No.Camion"
+            }
+        ));
+        
+     
+        
+
+// TODO add your handling code here:
     }//GEN-LAST:event_guardarActionPerformed
 
     private void regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarActionPerformed
@@ -398,6 +456,52 @@ public class CrudDatos extends javax.swing.JFrame {
             evt.consume();
         }        // TODO add your handling code here:
     }//GEN-LAST:event_NoCamionKeyTyped
+
+    private void HoraCrudDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HoraCrudDatosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_HoraCrudDatosActionPerformed
+
+    private void RutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RutaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_RutaActionPerformed
+
+    private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buscarActionPerformed
+
+    private void modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarActionPerformed
+        // TODO add your handling code here:
+        
+       /* CrudDatos crud= new  CrudDatos( Integer.parseInt(IDCrudDatos.getText()),HoraCrudDatos.getText(),Fecha.getName(),Estatus.getSelectedItem().toString(),Ruta.getSelectedItem().toString(),Concesionaria.getText(),Integer.parseInt(MatriculaCrudDatos.getText()),Integer.parseInt(NoCamion.getText()));
+       
+        lista.add(crud);
+        Object matris[][] = new Object [lista.size()][8];
+     
+       
+        
+        for(int i=0; i<lista.size(); i++){
+           
+           // matris[i][0]=lista.set(i).setIDcruddatos();
+            matris[i][1]=lista.set(i, crud).getHora();
+            matris[i][2]=lista.set(i, crud).getFecha();
+            matris[i][3]=lista.set(i, crud).getEstatus();
+            matris[i][4]=lista.set(i, crud).getRuta();
+            matris[i][5]=lista.set(i, crud).getConsecionaria();
+            matris[i][6]=lista.set(i, crud).getMatricula();
+            matris[i][7]=lista.set(i, crud).getNumcamion();
+        }
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            matris,
+            new String [] {
+                "ID", "Hora", "Fecha", "Estatus", "Ruta", "Concesionaria", "Matricula", "No.Camion"
+            }
+        ));
+        */
+        
+        
+        
+        
+    }//GEN-LAST:event_modificarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -435,18 +539,16 @@ public class CrudDatos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> ComboBox1;
     private javax.swing.JTextField Concesionaria;
-    private javax.swing.JRadioButton Entrada;
+    private javax.swing.JComboBox<String> Estatus;
+    private javax.swing.JSpinner Fecha;
     private javax.swing.JTextField HoraCrudDatos;
     private javax.swing.JLabel ID;
     private javax.swing.JTextField IDCrudDatos;
     private javax.swing.JTextField MatriculaCrudDatos;
     private javax.swing.JTextField NoCamion;
-    private javax.swing.JRadioButton Salida;
+    private javax.swing.JComboBox<String> Ruta;
     private javax.swing.JButton buscar;
-    private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JButton eliminar;
     private javax.swing.JButton guardar;
     private javax.swing.JLabel jLabel1;
