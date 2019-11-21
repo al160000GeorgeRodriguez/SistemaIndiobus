@@ -558,16 +558,18 @@ public class CrudDatos extends javax.swing.JFrame {
     }//GEN-LAST:event_IDCrudDatosActionPerformed
 
     private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
-        // TODO add your handling code here:
-        for(int i=0; i<lista.size(); i++){
-            if(ID_Registro == lista.get(i).getIDcruddatos()){
-            lista.remove(i);
-            }
-     
-        }
-        CrudDatos crud= new  CrudDatos( Integer.parseInt(IDCrudDatos.getText()),HoraCrudDatos.getText(),Fecha.getName(),Estatus.getSelectedItem().toString(),Ruta.getSelectedItem().toString(),Concesionaria.getText(),Integer.parseInt(MatriculaCrudDatos.getText()),Integer.parseInt(NoCamion.getText()));
        
-        lista.add(crud);
+        
+        
+        ID_Registro = Integer.parseInt(IDCrudDatos.getText());
+        for(int i=0; i<lista.size(); i++){
+           if(ID_Registro == lista.get(i).getIDcruddatos()){
+          lista.remove(i);
+
+           
+           }      
+        }
+        
         
         Object matris[][] = new Object [lista.size()][8];
       
