@@ -5,10 +5,11 @@
  */
 package LogIn;
 
-import Menu.Menu;
+import conectame.Conexion;
+import conectame.Tablas;
+import java.sql.Connection;
 import javax.swing.JOptionPane;
-import javax.swing.text.DefaultEditorKit;
-
+import Actividades.CRUD_Usuarios.Usuarios;
 /**
  *
  * @author compu
@@ -20,11 +21,36 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
+        iniciarComponentes();
     }
-    
-    private int matricula;
-    private String password;
+     void iniciarComponentes()
+    {
+        iniciarBaseDatos();
+        cerrarConexion();
+    }
+   
+    Conexion conexion = new Conexion();
+    private Connection miConexion = null;
+    Tablas tabla = new Tablas();
+        
+    void iniciarBaseDatos() {
+        conexion.setUsuario("lc78dKy0WL");
+        conexion.setPassword("o4sjumW5GZ");
+        conexion.setTipo("mysql");
+        conexion.setURL("remotemysql.com");
+        conexion.setPuerto(3306);
+        conexion.setDbase("lc78dKy0WL");
+        conexion.setOpciones("autoReconnect=true&useSSL=false");
+        //Se manada a llamar la conexion
+        miConexion = conexion.conexionDB();
+        tabla.LlenarTablaUsuarios(miConexion);
+        tabla.LlenarTablaCRUDDatos(miConexion);
 
+    }
+
+    void cerrarConexion() {
+          conexion.cerrarConexion();  
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -62,7 +88,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        Password.setText("jPasswordField1");
+        Password.setText("12491");
 
         jLabel1.setText("Usuario:");
 
@@ -142,14 +168,19 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void IniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IniciarActionPerformed
+       iniciarBaseDatos();
         
-        inciarSesion();
-        try {
-            
-        } catch (Exception e) {
-        JOptionPane.showMessageDialog(this,"Error de inicio");// TODO add your handling code here:
-
-        }
+        Usuarios usuario = new Usuarios();
+        Tablas tabla = new Tablas();
+        usuario.setMatricula(user.getText());
+        usuario.setPassword(Password.getText());
+        System.out.println(usuario.getPassword());
+        if (tabla.login(miConexion, usuario))
+            System.out.println("Aceptado");
+            else 
+            System.out.println("Rechazado");
+        cerrarConexion(); 
+       
     }//GEN-LAST:event_IniciarActionPerformed
 
     private void SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirActionPerformed
@@ -217,12 +248,5 @@ this.dispose();
     private javax.swing.JTextField user;
     // End of variables declaration//GEN-END:variables
 
-    private void inciarSesion() {
-        Menu ir = new Menu();
-        ir.setVisible(true);
-        this.dispose();
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    
-        
-    }
+  
 }

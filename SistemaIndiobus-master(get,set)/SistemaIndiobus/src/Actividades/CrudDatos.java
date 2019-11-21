@@ -12,17 +12,16 @@ import Menu.Menu;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
-import java.sql.PreparedStatement;
 import conectame.Conexion;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
-/**
- *
- * @author compu
- */
+import conectame.Tablas;
+import conectame.valoresConexion;
+import Menu.Menu;
+
 public class CrudDatos extends javax.swing.JFrame {
     
     int ID_Registro;
@@ -39,24 +38,37 @@ public class CrudDatos extends javax.swing.JFrame {
      */
     public CrudDatos() {
         initComponents();
+        iniciarComponentes();
+      
+    }
+  void iniciarComponentes()
+    {
+        iniciarBaseDatos();
+        cerrarConexion();
+    }
+   
+    Conexion conexion = new Conexion();
+    private Connection miConexion = null;
+    Tablas tabla = new Tablas();
         
-      /* jTable1.addMouseListener(new MouseAdapter(){
-            DefaultTableModel  model = new DefaultTableModel();
-            
-            @Override
-            public void mouseClicked(MouseEvent e){
-               int i = jTable1.getSelectedRows();
-               IDCrudDatos.setText(jTable1.getValueAt(i, 0).toString());
-               HoraCrudDatos.setText(jTable1.getValueAt(i, 1).toString());
-               Fecha.setName(jTable1.getValueAt(i, 2).toString());
-               Estatus.setSelectedItem(jTable1.getValueAt(i, 3).toString());
-               Ruta.setSelectedItem(jTable1.getValueAt(i, 4).toString());
-               Concesionaria.setText(jTable1.getValueAt(i, 5).toString());
-               MatriculaCrudDatos.setText(jTable1.getValueAt(i, 6).toString());
-               NoCamion.setText(jTable1.getValueAt(i, 7).toString());
-            }});// seleciona columna que desea eliminar de la tabla*/
+    void iniciarBaseDatos() {
+        conexion.setUsuario("lc78dKy0WL");
+        conexion.setPassword("o4sjumW5GZ");
+        conexion.setTipo("mysql");
+        conexion.setURL("remotemysql.com");
+        conexion.setPuerto(3306);
+        conexion.setDbase("lc78dKy0WL");
+        conexion.setOpciones("autoReconnect=true&useSSL=false");
+        //Se manada a llamar la conexion
+        miConexion = conexion.conexionDB();
+        tabla.LlenarTablaUsuarios(miConexion);
+        tabla.LlenarTablaCRUDDatos(miConexion);
+
     }
 
+    void cerrarConexion() {
+          conexion.cerrarConexion();  
+    }
    
 
         
@@ -426,10 +438,10 @@ public class CrudDatos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
-        CrudDatos crud= new  CrudDatos( Integer.parseInt(IDCrudDatos.getText()),HoraCrudDatos.getText(),Fecha.getValue().toString(),Estatus.getSelectedItem().toString(),Ruta.getSelectedItem().toString(),Concesionaria.getText(),Integer.parseInt(MatriculaCrudDatos.getText()),Integer.parseInt(NoCamion.getText()));
        
-        lista.add(crud);
-        
+      
+         CrudDatos crud= new  CrudDatos( Integer.parseInt(IDCrudDatos.getText()),HoraCrudDatos.getText(),Fecha.getValue().toString(),Estatus.getSelectedItem().toString(),Ruta.getSelectedItem().toString(),Concesionaria.getText(),Integer.parseInt(MatriculaCrudDatos.getText()),Integer.parseInt(NoCamion.getText()));
+         lista.add(crud);
         Object matris[][] = new Object [lista.size()][8];
       
        
@@ -453,6 +465,30 @@ public class CrudDatos extends javax.swing.JFrame {
                 "ID", "Hora", "Fecha", "Estatus", "Ruta", "Concesionaria", "Matricula", "No.Camion"
             }
         ));
+       
+        iniciarBaseDatos();
+        CrudDatos d =new CrudDatos ();
+        Tablas tabla= new Tablas();
+        d.setIDcruddatos(Integer.parseInt( IDCrudDatos.getText()));
+        d.setHora(HoraCrudDatos.getText());
+        d.setFecha(Fecha.getValue().toString());
+        d.setEstatus(Estatus.getSelectedItem().toString());
+        
+        
+        
+        /*if(jTable1.getRowCount()>0){
+        
+            for(int i = 0; i<jTable1.getRowCount(); i++){
+            iniciarBaseDatos();
+            String dataTemporalC = "INSERT INTO lc78dKy0WL.CRUD_Datos(Hora, Fecha,Estatus,Ruta,Matricula,NumCamion) VALUES "
+                + "('" + jTable1.getValueAt(i, 1) + "','" + jTable1.getValueAt(i, 2)+ "','" + jTable1.getValueAt(i, 3) + "', '" + jTable1.getValueAt(i, 4) + "','" + jTable1.getValueAt(i, 6) +"','" + jTable1.getValueAt(i, 7) + "');";
+            
+            cerrarConexion();
+            }
+        
+        }
+       */
+        
         
        IDCrudDatos.setText("");
        HoraCrudDatos.setText("");

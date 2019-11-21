@@ -31,7 +31,7 @@ public class CRUD_Usuarios extends javax.swing.JFrame {
     private String apellido;//apellido del usuario tipo string privado
     String tipousuario;// definicion del usuariio dentro de la organizacion empresarial tipo String default
     
-    ArrayList<CRUD_Usuarios> lista = new ArrayList<CRUD_Usuarios>();
+   
     
     
     //constructor
@@ -336,8 +336,7 @@ public class CRUD_Usuarios extends javax.swing.JFrame {
 
     private void crearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearActionPerformed
       
-        // CRUD_Usuarios  crud= new  CRUD_Usuarios (IDusuario.getText(),Matricula.getText(),Contrasena.getText(),Nombre.getText(),Apellido.getText(),Tipousuario.getSelectedItem());
-        //lista.add(crud);
+
         
 
 
