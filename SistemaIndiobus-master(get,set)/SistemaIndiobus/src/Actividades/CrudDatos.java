@@ -21,18 +21,12 @@ import javax.swing.table.DefaultTableModel;
 import conectame.Tablas;
 import conectame.valoresConexion;
 import Menu.Menu;
-
+import Actividades.Datos;
 public class CrudDatos extends javax.swing.JFrame {
     
     int ID_Registro;
-    String hora;
-    String fecha;
-    String estatus;
-    String ruta;
-    String consecionaria;
-    int matricula;//matricula de los alumnos que abordan indiobus
-    int numcamion;//numero de undiobus 
-    ArrayList<CrudDatos> lista = new ArrayList<CrudDatos>();
+  
+    ArrayList<Datos> lista = new ArrayList<Datos>();
     /**
      * Creates new form CrudDatos
      */
@@ -75,84 +69,7 @@ public class CrudDatos extends javax.swing.JFrame {
 //constructorIDCrudDatos
     
     
-    public CrudDatos(int IDcruddatos, String hora, String fecha, String estatus, String ruta, String consecionaria, int matricula, int numcamion) {
-        this.ID_Registro = IDcruddatos;
-        this.hora = hora;
-        this.fecha = fecha;
-        this.estatus = estatus;
-        this.ruta = ruta;
-        this.consecionaria = consecionaria;
-        this.matricula = matricula;
-        this.numcamion = numcamion;
-    }
-
-    public int getIDcruddatos() {
-        return ID_Registro;
-    }
-
-    public void setIDcruddatos(int ID_Registro) {
-        this.ID_Registro = ID_Registro;
-    }
-
-    public String getHora() {
-        return hora;
-    }
-
-    public void setHora(String hora) {
-        this.hora = hora;
-    }
-
-    public String getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(String fecha) {
-        this.fecha = fecha;
-    }
-
-    public String getEstatus() {
-        return estatus;
-    }
-
-    public void setEstatus(String estatus) {
-        this.estatus = estatus;
-    }
-
-    public String getRuta() {
-        return ruta;
-    }
-
-    public void setRuta(String ruta) {
-        this.ruta = ruta;
-    }
-
-    public String getConsecionaria() {
-        return consecionaria;
-    }
-
-    public void setConsecionaria(String consecionaria) {
-        this.consecionaria = consecionaria;
-    }
-
-    public int getMatricula() {
-        return matricula;
-       
-    }
-
-    public void setMatricula(int matricula) {
-        
-        this.matricula = matricula;
-        
-    }
-
-    public int getNumcamion() {
-        return numcamion;
-    }
-
-    public void setNumcamion(int numcamion) {
-        this.numcamion = numcamion;
-    }
-    
+  
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -440,8 +357,8 @@ public class CrudDatos extends javax.swing.JFrame {
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
        
       
-         CrudDatos crud= new  CrudDatos( Integer.parseInt(IDCrudDatos.getText()),HoraCrudDatos.getText(),Fecha.getValue().toString(),Estatus.getSelectedItem().toString(),Ruta.getSelectedItem().toString(),Concesionaria.getText(),Integer.parseInt(MatriculaCrudDatos.getText()),Integer.parseInt(NoCamion.getText()));
-         lista.add(crud);
+        Datos crud= new  Datos( Integer.parseInt(IDCrudDatos.getText()),HoraCrudDatos.getText(),Fecha.getValue().toString(),Estatus.getSelectedItem().toString(),Ruta.getSelectedItem().toString(),Concesionaria.getText(),Integer.parseInt(MatriculaCrudDatos.getText()),Integer.parseInt(NoCamion.getText()));
+        lista.add(crud);
         Object matris[][] = new Object [lista.size()][8];
       
        
@@ -466,29 +383,14 @@ public class CrudDatos extends javax.swing.JFrame {
             }
         ));
        
-        iniciarBaseDatos();
+        /*iniciarBaseDatos();
         CrudDatos d =new CrudDatos ();
         Tablas tabla= new Tablas();
         d.setIDcruddatos(Integer.parseInt( IDCrudDatos.getText()));
         d.setHora(HoraCrudDatos.getText());
         d.setFecha(Fecha.getValue().toString());
         d.setEstatus(Estatus.getSelectedItem().toString());
-        
-        
-        
-        /*if(jTable1.getRowCount()>0){
-        
-            for(int i = 0; i<jTable1.getRowCount(); i++){
-            iniciarBaseDatos();
-            String dataTemporalC = "INSERT INTO lc78dKy0WL.CRUD_Datos(Hora, Fecha,Estatus,Ruta,Matricula,NumCamion) VALUES "
-                + "('" + jTable1.getValueAt(i, 1) + "','" + jTable1.getValueAt(i, 2)+ "','" + jTable1.getValueAt(i, 3) + "', '" + jTable1.getValueAt(i, 4) + "','" + jTable1.getValueAt(i, 6) +"','" + jTable1.getValueAt(i, 7) + "');";
-            
-            cerrarConexion();
-            }
-        
-        }
-       */
-        
+        */
         
        IDCrudDatos.setText("");
        HoraCrudDatos.setText("");
