@@ -14,21 +14,17 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import java.sql.PreparedStatement;
 import conectame.Conexion;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author compu
  */
 public class CrudDatos extends javax.swing.JFrame {
-
-    /**
-     * Creates new form CrudDatos
-     */
-    public CrudDatos() {
-        initComponents();
-    }
-
+    
     int ID_Registro;
     String hora;
     String fecha;
@@ -38,6 +34,30 @@ public class CrudDatos extends javax.swing.JFrame {
     int matricula;//matricula de los alumnos que abordan indiobus
     int numcamion;//numero de undiobus 
     ArrayList<CrudDatos> lista = new ArrayList<CrudDatos>();
+    /**
+     * Creates new form CrudDatos
+     */
+    public CrudDatos() {
+        initComponents();
+        
+      /* jTable1.addMouseListener(new MouseAdapter(){
+            DefaultTableModel  model = new DefaultTableModel();
+            
+            @Override
+            public void mouseClicked(MouseEvent e){
+               int i = jTable1.getSelectedRows();
+               IDCrudDatos.setText(jTable1.getValueAt(i, 0).toString());
+               HoraCrudDatos.setText(jTable1.getValueAt(i, 1).toString());
+               Fecha.setName(jTable1.getValueAt(i, 2).toString());
+               Estatus.setSelectedItem(jTable1.getValueAt(i, 3).toString());
+               Ruta.setSelectedItem(jTable1.getValueAt(i, 4).toString());
+               Concesionaria.setText(jTable1.getValueAt(i, 5).toString());
+               MatriculaCrudDatos.setText(jTable1.getValueAt(i, 6).toString());
+               NoCamion.setText(jTable1.getValueAt(i, 7).toString());
+            }});// seleciona columna que desea eliminar de la tabla*/
+    }
+
+   
 
         
 //constructorIDCrudDatos
@@ -157,8 +177,12 @@ public class CrudDatos extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         IDCrudDatos.setText("1");
+        IDCrudDatos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                IDCrudDatosActionPerformed(evt);
+            }
+        });
 
-        HoraCrudDatos.setText("jTextField2");
         HoraCrudDatos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 HoraCrudDatosActionPerformed(evt);
@@ -231,6 +255,11 @@ public class CrudDatos extends javax.swing.JFrame {
         });
 
         eliminar.setText("Eliminar");
+        eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eliminarActionPerformed(evt);
+            }
+        });
 
         Ruta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         Ruta.addActionListener(new java.awt.event.ActionListener() {
@@ -397,7 +426,7 @@ public class CrudDatos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
-        CrudDatos crud= new  CrudDatos( Integer.parseInt(IDCrudDatos.getText()),HoraCrudDatos.getText(),Fecha.getName(),Estatus.getSelectedItem().toString(),Ruta.getSelectedItem().toString(),Concesionaria.getText(),Integer.parseInt(MatriculaCrudDatos.getText()),Integer.parseInt(NoCamion.getText()));
+        CrudDatos crud= new  CrudDatos( Integer.parseInt(IDCrudDatos.getText()),HoraCrudDatos.getText(),Fecha.getValue().toString(),Estatus.getSelectedItem().toString(),Ruta.getSelectedItem().toString(),Concesionaria.getText(),Integer.parseInt(MatriculaCrudDatos.getText()),Integer.parseInt(NoCamion.getText()));
        
         lista.add(crud);
         
@@ -425,8 +454,11 @@ public class CrudDatos extends javax.swing.JFrame {
             }
         ));
         
-     
-        
+       IDCrudDatos.setText("");
+       HoraCrudDatos.setText("");
+       MatriculaCrudDatos.setText("");
+       MatriculaCrudDatos.setText("");
+       NoCamion.setText("");
 
 // TODO add your handling code here:
     }//GEN-LAST:event_guardarActionPerformed
@@ -470,25 +502,39 @@ public class CrudDatos extends javax.swing.JFrame {
     }//GEN-LAST:event_buscarActionPerformed
 
     private void modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarActionPerformed
-        // TODO add your handling code here:
+   
+        ID_Registro = Integer.parseInt(IDCrudDatos.getText());
+        for(int i=0; i<lista.size(); i++){
+           if(ID_Registro == lista.get(i).getIDcruddatos()){
+           lista.get(i).setHora(HoraCrudDatos.getText());
+           lista.get(i).setFecha(Fecha.getName());
+           lista.get(i).setEstatus(Estatus.getSelectedItem().toString());
+           lista.get(i).setRuta(Ruta.getSelectedItem().toString());
+           lista.get(i).setConsecionaria(Concesionaria.getText());
+           lista.get(i).setMatricula(Integer.parseInt( MatriculaCrudDatos.getText()));
+           lista.get(i).setNumcamion(Integer.parseInt( NoCamion.getText()));
+
+           
+           }      
+           
+        }
         
-       /* CrudDatos crud= new  CrudDatos( Integer.parseInt(IDCrudDatos.getText()),HoraCrudDatos.getText(),Fecha.getName(),Estatus.getSelectedItem().toString(),Ruta.getSelectedItem().toString(),Concesionaria.getText(),Integer.parseInt(MatriculaCrudDatos.getText()),Integer.parseInt(NoCamion.getText()));
-       
-        lista.add(crud);
         Object matris[][] = new Object [lista.size()][8];
-     
+      
        
         
         for(int i=0; i<lista.size(); i++){
            
-           // matris[i][0]=lista.set(i).setIDcruddatos();
-            matris[i][1]=lista.set(i, crud).getHora();
-            matris[i][2]=lista.set(i, crud).getFecha();
-            matris[i][3]=lista.set(i, crud).getEstatus();
-            matris[i][4]=lista.set(i, crud).getRuta();
-            matris[i][5]=lista.set(i, crud).getConsecionaria();
-            matris[i][6]=lista.set(i, crud).getMatricula();
-            matris[i][7]=lista.set(i, crud).getNumcamion();
+            
+            matris[i][0]=lista.get(i).getIDcruddatos();
+            matris[i][1]=lista.get(i).getHora();
+            matris[i][2]=lista.get(i).getFecha();
+            matris[i][3]=lista.get(i).getEstatus();
+            matris[i][4]=lista.get(i).getRuta();
+            matris[i][5]=lista.get(i).getConsecionaria();
+            matris[i][6]=lista.get(i).getMatricula();
+            matris[i][7]=lista.get(i).getNumcamion();
+           
         }
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             matris,
@@ -496,12 +542,53 @@ public class CrudDatos extends javax.swing.JFrame {
                 "ID", "Hora", "Fecha", "Estatus", "Ruta", "Concesionaria", "Matricula", "No.Camion"
             }
         ));
-        */
-        
-        
+       
+       IDCrudDatos.setText("");
+       HoraCrudDatos.setText("");
+       MatriculaCrudDatos.setText("");
+       MatriculaCrudDatos.setText("");
+       NoCamion.setText("");
+       
         
         
     }//GEN-LAST:event_modificarActionPerformed
+
+    private void IDCrudDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IDCrudDatosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_IDCrudDatosActionPerformed
+
+    private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
+        // TODO add your handling code here:
+        for(int i=0; i<lista.size(); i++){
+            if(ID_Registro == lista.get(i).getIDcruddatos()){
+            lista.remove(i);
+            }
+     
+        }
+        CrudDatos crud= new  CrudDatos( Integer.parseInt(IDCrudDatos.getText()),HoraCrudDatos.getText(),Fecha.getName(),Estatus.getSelectedItem().toString(),Ruta.getSelectedItem().toString(),Concesionaria.getText(),Integer.parseInt(MatriculaCrudDatos.getText()),Integer.parseInt(NoCamion.getText()));
+       
+        lista.add(crud);
+        
+        Object matris[][] = new Object [lista.size()][8];
+      
+        for(int i=0; i<lista.size(); i++){
+            matris[i][0]=lista.get(i).getIDcruddatos();
+            matris[i][1]=lista.get(i).getHora();
+            matris[i][2]=lista.get(i).getFecha();
+            matris[i][3]=lista.get(i).getEstatus();
+            matris[i][4]=lista.get(i).getRuta();
+            matris[i][5]=lista.get(i).getConsecionaria();
+            matris[i][6]=lista.get(i).getMatricula();
+            matris[i][7]=lista.get(i).getNumcamion();
+           
+        }
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            matris,
+            new String [] {
+                "ID", "Hora", "Fecha", "Estatus", "Ruta", "Concesionaria", "Matricula", "No.Camion"
+            }
+        ));
+    }//GEN-LAST:event_eliminarActionPerformed
 
     /**
      * @param args the command line arguments
