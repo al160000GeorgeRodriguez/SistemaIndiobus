@@ -5,7 +5,11 @@
  */
 package Actividades.CRUD_Usuarios;
 
+import Actividades.Datos;
 import Menu.Menu;
+import conectame.Conexion;
+import conectame.Tablas;
+import java.sql.Connection;
 import java.util.ArrayList;
 
 
@@ -22,6 +26,8 @@ public class CRUD_Usuarios extends javax.swing.JFrame {
      */
     public CRUD_Usuarios() {
         initComponents();
+        iniciarcomponentes();
+        
     }
     
     int id_usuario;// id del usuario default de tipo entero
@@ -31,67 +37,36 @@ public class CRUD_Usuarios extends javax.swing.JFrame {
     private String apellido;//apellido del usuario tipo string privado
     String tipousuario;// definicion del usuariio dentro de la organizacion empresarial tipo String default
     
+    void iniciarcomponentes(){
+    iniciarBaseDatos();
+    cerrarConexion();
+    
+}
+    ArrayList<Usuarios> lista = new ArrayList<Usuarios>();
+    Conexion conexion = new Conexion();
+    private Connection miConnection= null;
+    Tablas tabla = new Tablas();
+    private void cerrarConexion() {
+        conexion.cerrarConexion();
+    }
+
+    private void iniciarBaseDatos() {
+                conexion.setUsuario("lc78dKy0WL");
+        conexion.setPassword("o4sjumW5GZ");
+        conexion.setTipo("mysql");
+        conexion.setURL("remotemysql.com");
+        conexion.setPuerto(3306);
+        conexion.setDbase("lc78dKy0WL");
+        conexion.setOpciones("autoReconnect=true&useSSL=false");
+        //Se manada a llamar la conexion
+        miConnection = conexion.conexionDB();
+        //tabla.CrearTablaUsuario(miConexion);
+        tabla.LlenarTablaUsuarios(miConnection);
+    }
    
     
     
-    //constructor
-   /* public CRUD_Usuarios(int id_usuario, int matricula, String password, String nombre, String apellido, String tipousuario) {
-        this.id_usuario = id_usuario;
-        this.matricula = matricula;
-        this.password = password;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.tipousuario = tipousuario; 
-    }
-*/
-    public int getId_usuario() {
-        return id_usuario;
-    }
-
-    public void setId_usuario(int id_usuario) {
-        this.id_usuario = id_usuario;
-    }
-
-    public int getMatricula() {
-        return matricula;
-    }
-
-    public void setMatricula(int matricula) {
-        this.matricula = matricula;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-     public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public  String getApellido() {
-        return apellido;
-    }
-
-    public  void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
-     public  String getTipousuario() {
-        return tipousuario;
-    }
-
-    public void setTipousuario(String tipousuario) {
-        this.tipousuario = tipousuario;
-    }
-
+    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -104,7 +79,7 @@ public class CRUD_Usuarios extends javax.swing.JFrame {
 
         scrollPane1 = new java.awt.ScrollPane();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        TB = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         IDusuario = new javax.swing.JTextField();
         Matricula = new javax.swing.JTextField();
@@ -125,7 +100,7 @@ public class CRUD_Usuarios extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        TB.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"1", "150204", "**********", "Joaquin Kaleb", "Chavira Gonzalez", "Alumno Becario"},
                 {"2", "159949", "*****", "Luis Ivan", "Valdez Anchondo", "Alumno Becario"},
@@ -152,18 +127,13 @@ public class CRUD_Usuarios extends javax.swing.JFrame {
                 "ID", "Matricula", "Contraseña", "Nombre", "Apellido", "Tipo de Usuario"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(TB);
 
         scrollPane1.add(jScrollPane1);
 
         jLabel1.setText("ID:");
 
         IDusuario.setText("1");
-        IDusuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                IDusuarioActionPerformed(evt);
-            }
-        });
 
         Matricula.setText("150204");
 
@@ -335,16 +305,40 @@ public class CRUD_Usuarios extends javax.swing.JFrame {
     }//GEN-LAST:event_eliminarActionPerformed
 
     private void crearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearActionPerformed
-      
-
+ id_usuario= Integer.parseInt(IDusuario.getText());
+ matricula= Integer.parseInt(Matricula.getText());
+ password = Contrasena.getPassword().toString();
+ nombre= Nombre.getText();
+ apellido= Apellido.getText();
+ tipousuario = Tipousuario.getSelectedItem().toString();
+ 
         
-
-
-// TODO add your handling code here:
-        try {
+        Usuarios crud = new Usuarios(id_usuario,matricula,password,nombre,apellido,tipousuario);
+        lista.add(crud);
+        iniciarBaseDatos();
+        tabla.CrudDatosGuardar(miConnection, crud);
+        cerrarConexion();
+        Object matris[][] = new Object [lista.size()][8];
+        
+         for(int i=0; i<lista.size(); i++){
+           
             
-        } catch (Exception e) {
+            matris[i][0]=lista.get(i).getId_Usuarios();
+            matris[i][1]=lista.get(i).getMatricula();
+            matris[i][2]=lista.get(i).getPassword();
+            matris[i][3]=lista.get(i).getNombre();
+            matris[i][4]=lista.get(i).getApellido();
+            matris[i][5]=lista.get(i).getTipoUsuario();
+            
+           
         }
+        TB.setModel(new javax.swing.table.DefaultTableModel(
+            matris,
+            new String [] {
+                "ID Usuario", "Matricula", "Contraseña", "Nombre", "Apellido", "Tipo de Usuario"
+            }
+        ));
+
     }//GEN-LAST:event_crearActionPerformed
 
     private void modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarActionPerformed
@@ -354,10 +348,6 @@ public class CRUD_Usuarios extends javax.swing.JFrame {
         } catch (Exception e) {
         }
     }//GEN-LAST:event_modificarActionPerformed
-
-    private void IDusuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IDusuarioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_IDusuarioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -401,6 +391,7 @@ public class CRUD_Usuarios extends javax.swing.JFrame {
     javax.swing.JTextField IDusuario;
     protected javax.swing.JTextField Matricula;
     private javax.swing.JTextField Nombre;
+    private javax.swing.JTable TB;
     javax.swing.JComboBox<String> Tipousuario;
     private javax.swing.JButton crear;
     private javax.swing.JButton eliminar;
@@ -411,9 +402,10 @@ public class CRUD_Usuarios extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JButton modificar;
     private javax.swing.JButton regresar;
     private java.awt.ScrollPane scrollPane1;
     // End of variables declaration//GEN-END:variables
+
+    
 }

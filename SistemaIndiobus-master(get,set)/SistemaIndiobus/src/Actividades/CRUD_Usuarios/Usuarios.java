@@ -12,6 +12,14 @@ package Actividades.CRUD_Usuarios;
 public class Usuarios {
     private int Id_Usuarios;
     private String Matricula, Password, Nombre, Apellido, TipoUsuario;
+
+    Usuarios(int id_usuario, int matricula, String password, String nombre, String apellido, String tipousuario) {
+       
+    }
+
+    public Usuarios() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     public int getId_Usuarios(){
         return Id_Usuarios;
     }
