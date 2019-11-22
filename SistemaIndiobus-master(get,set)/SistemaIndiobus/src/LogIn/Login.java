@@ -34,6 +34,7 @@ public class Login extends javax.swing.JFrame {
     Tablas tabla = new Tablas();
         
     void iniciarBaseDatos() {
+        //https://remotemysql.com/phpmyadmin/index.php
         conexion.setUsuario("lc78dKy0WL");
         conexion.setPassword("o4sjumW5GZ");
         conexion.setTipo("mysql");
@@ -43,8 +44,10 @@ public class Login extends javax.swing.JFrame {
         conexion.setOpciones("autoReconnect=true&useSSL=false");
         //Se manada a llamar la conexion
         miConexion = conexion.conexionDB();
-        tabla.LlenarTablaUsuarios(miConexion);
+      // tabla.CrearTablaCRUDDatos(miConexion);
+        //tabla.CrearTablaUsuario(miConexion);
         tabla.LlenarTablaCRUDDatos(miConexion);
+        tabla.LlenarTablaUsuarios(miConexion);
 
     }
 

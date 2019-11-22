@@ -55,8 +55,8 @@ public class CrudDatos extends javax.swing.JFrame {
         conexion.setOpciones("autoReconnect=true&useSSL=false");
         //Se manada a llamar la conexion
         miConexion = conexion.conexionDB();
+        //tabla.CrearTablaUsuario(miConexion);
         tabla.LlenarTablaUsuarios(miConexion);
-        tabla.LlenarTablaCRUDDatos(miConexion);
 
     }
 
@@ -112,6 +112,7 @@ public class CrudDatos extends javax.swing.JFrame {
             }
         });
 
+        HoraCrudDatos.setText("20:00");
         HoraCrudDatos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 HoraCrudDatosActionPerformed(evt);
@@ -359,6 +360,10 @@ public class CrudDatos extends javax.swing.JFrame {
       
         Datos crud= new  Datos( Integer.parseInt(IDCrudDatos.getText()),HoraCrudDatos.getText(),Fecha.getValue().toString(),Estatus.getSelectedItem().toString(),Ruta.getSelectedItem().toString(),Concesionaria.getText(),Integer.parseInt(MatriculaCrudDatos.getText()),Integer.parseInt(NoCamion.getText()));
         lista.add(crud);
+        System.out.println(crud.fecha);
+              iniciarBaseDatos();
+        tabla.CrudDatosGuardar(miConexion, crud);
+        cerrarConexion();
         Object matris[][] = new Object [lista.size()][8];
       
        
