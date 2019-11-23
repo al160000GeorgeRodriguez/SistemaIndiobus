@@ -289,11 +289,33 @@ public class CRUD_Usuarios extends javax.swing.JFrame {
     }//GEN-LAST:event_regresarActionPerformed
 
     private void BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarActionPerformed
-        try {
-            
-        } catch (Exception e) {
+       id_usuario = Integer.parseInt(IDusuario.getText());
+        for(int i=0; i<lista.size(); i++){
+           if(id_usuario == lista.get(i).getId_Usuarios()){
+         Object matris[][] = new Object [lista.size()][8];
+                matris[i][0]=lista.get(i).getId_Usuarios();
+            matris[i][1]=lista.get(i).getMatricula();
+            matris[i][2]=lista.get(i).getPassword(); 
+           matris[i][3]=lista.get(i).getNombre();
+            matris[i][4]=lista.get(i).getApellido();
+            matris[i][5]=lista.get(i).getTipoUsuario();
+           TB.setModel(new javax.swing.table.DefaultTableModel(
+            matris,
+            new String [] {
+                "ID", "Hora", "Fecha", "Estatus", "Ruta", "Concesionaria", "Matricula", "No.Camion"
+            }     ));
+           }      
+           
         }
- 
+   
+       
+       /*IDusuario.setText("");
+       Matricula.setText("");
+       Contrasena.setText("");
+       .setText("");
+       NoCamion.setText("");*/
+       
+        
     }//GEN-LAST:event_BuscarActionPerformed
 
     private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
