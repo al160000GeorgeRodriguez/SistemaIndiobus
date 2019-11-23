@@ -11,6 +11,7 @@ import conectame.Conexion;
 import conectame.Tablas;
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 
@@ -327,20 +328,22 @@ public class CRUD_Usuarios extends javax.swing.JFrame {
     }//GEN-LAST:event_eliminarActionPerformed
 
     private void crearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearActionPerformed
- id_usuario= Integer.parseInt(IDusuario.getText());
- matricula= Integer.parseInt(Matricula.getText());
- password = Contrasena.getPassword().toString();
- nombre= Nombre.getText();
- apellido= Apellido.getText();
- tipousuario = Tipousuario.getSelectedItem().toString();
  
-        
-        Usuarios crud = new Usuarios(id_usuario,matricula,password,nombre,apellido,tipousuario);
+id_usuario= Integer.parseInt(IDusuario.getText());
+matricula= Integer.parseInt(Matricula.getText());
+password = Arrays.toString(Contrasena.getPassword());
+nombre= Nombre.getText();
+apellido= Apellido.getText();
+tipousuario = Tipousuario.getSelectedItem().toString();
+
+
+Usuarios crud = new Usuarios(id_usuario,matricula,password,nombre,apellido,tipousuario);
         lista.add(crud);
         iniciarBaseDatos();
         tabla.CrudDatosGuardar(miConnection, crud);
         cerrarConexion();
         Object matris[][] = new Object [lista.size()][8];
+
         
          for(int i=0; i<lista.size(); i++){
            

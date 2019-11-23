@@ -175,6 +175,87 @@ public class Tablas {
         }
         return false;
     }
+        public boolean CrudDatosGuardar(Connection conexion,Usuarios usuario) {
+               String data = "INSERT INTO lc78dKy0WL.Usuarios( Matricula, Password,Nombre,Apellido,TipoUsuario) VALUES "
+                + "('" + usuario.getMatricula()+ "','" + usuario.getPassword()+ "','" + usuario.getNombre() + "', '" + usuario.getApellido() + "','" + usuario.getTipoUsuario()+ "');";
+        try {
+            // Se genera la sentencia
+            PreparedStatement sentencia = conexion.prepareStatement(data);
+            System.out.println("Data:"+data);
+            int res = sentencia.executeUpdate();
+            return true;
+        } catch (SQLException sqle) {
+            // solo depuracion se genera el codigo de error
+            System.out.println("Instrucción incorrecta:" + sqle.getErrorCode() + " " + sqle.getMessage());
+        }
+        return false;
+    }
+        
+        public ResultSet CrudDatosBuscar(Connection conexion,Datos datos) {
+        // Se crea la variable para resultados
+        ResultSet rs = null;
+        Boolean sentenciaPrevia = false;
+        String busqueda = "";
+        Datos datosaux=datos;
+        // Si no se ingresa un dato se muestra todo
+        String base = "SELECT ID_Registro,Hora, Fecha,Estatus,Ruta,Concesionaria,Matricula,NumCamion FROM lc78dKy0WL.CRUD_Datos WHERE ";
+        if (datosaux.getIDcruddatos()==0) {
+            busqueda += "(ID_Registro='" + datosaux.getIDcruddatos() + "')";
+            sentenciaPrevia=true;
+        }
+        if (!datosaux.getHora().isEmpty()) {
+            if(sentenciaPrevia)
+                busqueda += " AND ";
+            busqueda += "(Hora='" + datosaux.getHora() + "')";
+            sentenciaPrevia=true;
+        }
+        if (!datosaux.getFecha().isEmpty()) {
+            if(sentenciaPrevia)
+                busqueda += " AND ";
+            busqueda += "(Fecha='" + datosaux.getFecha() + "')";
+            sentenciaPrevia=true;
+        }
+        if (!datosaux.getEstatus().isEmpty()) {
+            if(sentenciaPrevia)
+                busqueda += " AND ";
+            busqueda += "(Estatus='" + datosaux.getEstatus() + "')";
+            sentenciaPrevia=true;
+        }
+        if (!datosaux.getRuta().isEmpty()) {
+            if(sentenciaPrevia)
+                busqueda += " AND ";
+            busqueda += "(Ruta='" + datosaux.getRuta() + "')";
+            sentenciaPrevia=true;
+        }
+        if (datosaux.getMatricula()!=0) {
+            if(sentenciaPrevia)
+                busqueda += " AND ";
+            busqueda += "(Matricula='" + datosaux.getMatricula() + "')";
+            sentenciaPrevia=true;
+        }
+        if (datosaux.getNumcamion()!=0) {
+            if(sentenciaPrevia)
+                busqueda += " AND ";
+            busqueda += "(NumCamion='" + datosaux.getNumcamion() + "')";
+        }
+        
+        busqueda = base + busqueda;
+        //String Sfinal = " ORDER BY id ASC";
+        // Se conjunta la base con la estructura elegida
+        busqueda = base + busqueda;
+        System.out.println(busqueda);
+        try {
+            PreparedStatement sentencia = conexion.prepareStatement(busqueda);
+            // sentencia.setString(1,Nombre);
+            rs = sentencia.executeQuery();
+        } catch (SQLException sqle) {
+            // solo depuracion
+            System.out.println("Instrucción incorrecta:" + sqle.getErrorCode() + " " + sqle.getMessage());
+        }
+        //     conexion.cerrarConexion();
+        return rs;
+
+        }
 
 }
 

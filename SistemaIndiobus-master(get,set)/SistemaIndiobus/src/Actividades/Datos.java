@@ -11,14 +11,14 @@ package Actividades;
  * @author Rudy
  */
 public class Datos {
-     int ID_Registro;
+     int ID_Registro=0;
     String hora;
     String fecha;
     String estatus;
     String ruta;
     String consecionaria;
-    int matricula;//matricula de los alumnos que abordan indiobus
-    int numcamion;//numero de undiobus 
+    int matricula=0;//matricula de los alumnos que abordan indiobus
+    int numcamion=0;//numero de undiobus 
     
     
      public Datos(int IDcruddatos, String hora, String fecha, String estatus, String ruta, String consecionaria, int matricula, int numcamion) {

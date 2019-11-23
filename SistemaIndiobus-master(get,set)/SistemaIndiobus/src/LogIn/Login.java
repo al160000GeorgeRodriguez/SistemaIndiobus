@@ -175,7 +175,7 @@ public class Login extends javax.swing.JFrame {
         
         Usuarios usuario = new Usuarios();
         Tablas tabla = new Tablas();
-        usuario.setMatricula(user.getText());
+        usuario.setMatricula(Integer.parseInt(user.getText()));
         usuario.setPassword(Password.getText());
         System.out.println(usuario.getPassword());
         if (tabla.login(miConexion, usuario))
