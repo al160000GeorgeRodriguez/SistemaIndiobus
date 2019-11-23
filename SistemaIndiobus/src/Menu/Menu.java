@@ -5,6 +5,7 @@
  */
 package Menu;
 
+import Actividades.CrudDatos;
 import Actividades.Busqueda;
 import Actividades.CRUD_Usuarios.CRUD_Usuarios;
 import Actividades.VistaDatos;
@@ -120,36 +121,37 @@ public class Menu extends javax.swing.JFrame {
 
     private void BcapturasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BcapturasActionPerformed
 
-       Busqueda ir = new Busqueda();
+        CrudDatos ir = new CrudDatos();
         ir.setVisible(true);  
-        this.dispose();// TODO add your handling code here:
+        this.setVisible(true);
+// TODO add your handling code here:
 
     }//GEN-LAST:event_BcapturasActionPerformed
 
     private void BreportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BreportesActionPerformed
-VistaDatos ir = new VistaDatos();
-ir.setVisible(true);
-this.dispose();// TODO add your handling code here:
+        VistaDatos ir = new VistaDatos();
+        ir.setVisible(true);
+        this.dispose();// TODO add your handling code here:
     }//GEN-LAST:event_BreportesActionPerformed
 
     private void BbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BbuscarActionPerformed
-Busqueda ir = new Busqueda();
-ir.setVisible(true);
-this.dispose();
+    Busqueda ir = new Busqueda();
+    ir.setVisible(true);
+    this.dispose();
 
         // TODO add your handling code here:
     }//GEN-LAST:event_BbuscarActionPerformed
 
     private void BUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BUsuariosActionPerformed
         CRUD_Usuarios ir = new CRUD_Usuarios();
-ir.setVisible(true);
-this.dispose();        // TODO add your handling code here:
+        ir.setVisible(true);
+        this.dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_BUsuariosActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-Login ir = new Login();
-ir.setVisible(true);
-this.dispose();        // TODO add your handling code here:
+        Login ir = new Login();
+        ir.setVisible(true);
+        this.dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_jButton6ActionPerformed
 
     /**

@@ -6,6 +6,12 @@
 package Actividades.CRUD_Usuarios;
 
 import Menu.Menu;
+import conectame.Conexion;
+import conectame.Tablas;
+import java.sql.Connection;
+import java.util.ArrayList;
+
+
 
 /**
  *
@@ -13,13 +19,48 @@ import Menu.Menu;
  */
 public class CRUD_Usuarios extends javax.swing.JFrame {
 
+  
     /**
      * Creates new form CRUD_Usuarios
      */
     public CRUD_Usuarios() {
         initComponents();
+        iniciarcomponentes();
+    }
+    
+    
+    int id_usuario;// id del usuario default de tipo entero
+
+     void iniciarcomponentes(){
+    iniciarBaseDatos();
+    cerrarConexion();
+    
+}
+    ArrayList<Usuarios> lista = new ArrayList<Usuarios>();
+    Conexion conexion = new Conexion();
+    private Connection miConnection= null;
+    Tablas tabla = new Tablas();
+    private void cerrarConexion() {
+        conexion.cerrarConexion();
     }
 
+    private void iniciarBaseDatos() {
+                conexion.setUsuario("lc78dKy0WL");
+        conexion.setPassword("o4sjumW5GZ");
+        conexion.setTipo("mysql");
+        conexion.setURL("remotemysql.com");
+        conexion.setPuerto(3306);
+        conexion.setDbase("lc78dKy0WL");
+        conexion.setOpciones("autoReconnect=true&useSSL=false");
+        //Se manada a llamar la conexion
+        miConnection = conexion.conexionDB();
+        //tabla.CrearTablaUsuario(miConexion);
+        tabla.LlenarTablaUsuarios(miConnection);
+    }
+   
+    
+
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -31,28 +72,28 @@ public class CRUD_Usuarios extends javax.swing.JFrame {
 
         scrollPane1 = new java.awt.ScrollPane();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        TB = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        IDusuario = new javax.swing.JTextField();
+        Matricula = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        Contrasena = new javax.swing.JPasswordField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        Nombre = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
+        Apellido = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        Tipousuario = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        Buscar = new javax.swing.JButton();
+        crear = new javax.swing.JButton();
+        eliminar = new javax.swing.JButton();
+        modificar = new javax.swing.JButton();
+        regresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        TB.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"1", "150204", "**********", "Joaquin Kaleb", "Chavira Gonzalez", "Alumno Becario"},
                 {"2", "159949", "*****", "Luis Ivan", "Valdez Anchondo", "Alumno Becario"},
@@ -79,46 +120,71 @@ public class CRUD_Usuarios extends javax.swing.JFrame {
                 "ID", "Matricula", "Contraseña", "Nombre", "Apellido", "Tipo de Usuario"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(TB);
 
         scrollPane1.add(jScrollPane1);
 
         jLabel1.setText("ID:");
 
-        jTextField1.setText("1");
+        IDusuario.setText("1");
+        IDusuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                IDusuarioActionPerformed(evt);
+            }
+        });
 
-        jTextField2.setText("150204");
+        Matricula.setText("150204");
 
         jLabel2.setText("Matricula:");
 
-        jPasswordField1.setText("jPasswordField1");
+        Contrasena.setText("jPasswordField1");
 
         jLabel3.setText("Contraseña:");
 
-        jTextField4.setText("Joaquin Kaleb");
+        Nombre.setText("Joaquin Kaleb");
 
         jLabel4.setText("Nombre:");
 
-        jTextField5.setText("Chavira Gonzalez");
+        Apellido.setText("Chavira Gonzalez");
 
         jLabel5.setText("Apellido:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Alumno Becario\t", "Administrador" }));
+        Tipousuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Alumno Becario\t", "Administrador" }));
 
         jLabel6.setText("Tipo de Usuario:");
 
-        jButton2.setText("Buscar");
-
-        jButton3.setText("Crear");
-
-        jButton4.setText("Eliminar");
-
-        jButton5.setText("Modificar");
-
-        jButton6.setText("Regresar");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        Buscar.setText("Buscar");
+        Buscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                BuscarActionPerformed(evt);
+            }
+        });
+
+        crear.setText("Crear");
+        crear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                crearActionPerformed(evt);
+            }
+        });
+
+        eliminar.setText("Eliminar");
+        eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eliminarActionPerformed(evt);
+            }
+        });
+
+        modificar.setText("Modificar");
+        modificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modificarActionPerformed(evt);
+            }
+        });
+
+        regresar.setText("Regresar");
+        regresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                regresarActionPerformed(evt);
             }
         });
 
@@ -143,30 +209,30 @@ public class CRUD_Usuarios extends javax.swing.JFrame {
                             .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextField5)
-                    .addComponent(jTextField4)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
-                    .addComponent(jTextField2)
-                    .addComponent(jTextField1))
+                    .addComponent(Tipousuario, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Apellido)
+                    .addComponent(Nombre)
+                    .addComponent(Contrasena, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+                    .addComponent(Matricula)
+                    .addComponent(IDusuario))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(61, 61, 61)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(modificar, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
+                            .addComponent(crear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap(46, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton6)
+                        .addComponent(regresar)
                         .addContainerGap())))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton2, jButton3, jButton4, jButton5});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {Buscar, crear, eliminar, modificar});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -175,50 +241,127 @@ public class CRUD_Usuarios extends javax.swing.JFrame {
                 .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(IDusuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Buscar)
+                    .addComponent(crear))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Matricula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Contrasena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(jButton4)
-                    .addComponent(jButton5))
+                    .addComponent(eliminar)
+                    .addComponent(modificar))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Apellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Tipousuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6))
                         .addContainerGap(19, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton6)
+                        .addComponent(regresar)
                         .addContainerGap())))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButton2, jButton3, jButton4, jButton5, jButton6});
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {Buscar, crear, eliminar, modificar, regresar});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-Menu ir = new Menu();
-ir.setVisible(true);
-this.dispose();        // TODO add your handling code here:        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton6ActionPerformed
+    private void regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarActionPerformed
+        Menu ir = new Menu();
+        ir.setVisible(true);
+        this.dispose();        // TODO add your handling code here:        // TODO add your handling code here:
+    }//GEN-LAST:event_regresarActionPerformed
+
+    private void BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarActionPerformed
+id_usuario = Integer.parseInt(IDusuario.getText());
+        for(int i=0; i<lista.size(); i++){
+           if(id_usuario == lista.get(i).getId_Usuarios()){
+         Object matris[][] = new Object [lista.size()][8];
+                matris[i][0]=lista.get(i).getId_Usuarios();
+            matris[i][1]=lista.get(i).getMatricula();
+            matris[i][2]=lista.get(i).getPassword(); 
+           matris[i][3]=lista.get(i).getNombre();
+            matris[i][4]=lista.get(i).getApellido();
+            matris[i][5]=lista.get(i).getTipoUsuario();
+           TB.setModel(new javax.swing.table.DefaultTableModel(
+            matris,
+            new String [] {
+                "ID", "Hora", "Fecha", "Estatus", "Ruta", "Concesionaria", "Matricula", "No.Camion"
+            }     ));
+           }      
+ 
+        }
+    }//GEN-LAST:event_BuscarActionPerformed
+
+    private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
+        // TODO add your handling code here:
+        try {
+            
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_eliminarActionPerformed
+
+    private void crearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearActionPerformed
+
+        Usuarios crud = new Usuarios(Integer.parseInt(IDusuario.getText()),Integer.parseInt(Matricula.getText()),Contrasena.getPassword().toString(),Nombre.getText(),Apellido.getText(),Tipousuario.getSelectedItem().toString());
+       lista.add(crud);
+       iniciarBaseDatos();
+       tabla.CrudUsuarioGuardar(miConnection,crud);
+       cerrarConexion();
+        Object matris[][] = new Object [lista.size()][6];
+        
+         for(int i=0; i<lista.size(); i++){
+           
+            
+            matris[i][0]=lista.get(i).getId_Usuarios();
+            matris[i][1]=lista.get(i).getMatricula();
+            matris[i][2]=lista.get(i).getPassword();
+            matris[i][3]=lista.get(i).getNombre();
+            matris[i][4]=lista.get(i).getApellido();
+            matris[i][5]=lista.get(i).getTipoUsuario();
+            
+           
+        }
+        TB.setModel(new javax.swing.table.DefaultTableModel(
+            matris,
+            new String [] {
+                "ID Usuario", "Matricula", "Contraseña", "Nombre", "Apellido", "Tipo de Usuario"
+            }
+        ));
+
+
+// TODO add your handling code here:
+        try {
+            
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_crearActionPerformed
+
+    private void modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarActionPerformed
+        // TODO add your handling code here:
+        try {
+            
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_modificarActionPerformed
+
+    private void IDusuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IDusuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_IDusuarioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -256,25 +399,25 @@ this.dispose();        // TODO add your handling code here:        // TODO add y
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JTextField Apellido;
+    private javax.swing.JButton Buscar;
+    protected javax.swing.JPasswordField Contrasena;
+    javax.swing.JTextField IDusuario;
+    protected javax.swing.JTextField Matricula;
+    private javax.swing.JTextField Nombre;
+    private javax.swing.JTable TB;
+    javax.swing.JComboBox<String> Tipousuario;
+    private javax.swing.JButton crear;
+    private javax.swing.JButton eliminar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
+    private javax.swing.JButton modificar;
+    private javax.swing.JButton regresar;
     private java.awt.ScrollPane scrollPane1;
     // End of variables declaration//GEN-END:variables
 }

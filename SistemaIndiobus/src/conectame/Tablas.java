@@ -19,17 +19,16 @@ import java.sql.Statement;
 //genera numeros aleatorios
 import java.util.Random;
 //genera numeros aleatorios
-
 import Actividades.CRUD_Usuarios.Usuarios;
-
-
+import Actividades.CrudDatos;
+import Actividades.Datos;
 /**
  *
  * @author WAX
  */
 public class Tablas {
-    public boolean BorrarTabla(Connection conexion, String Tabla) {
-        String borrarTabla = "drop table if exists "+Tabla+";";
+    public boolean BorrarTabla(Connection conexion,String tabla) {
+        String borrarTabla = "drop table if exists "+ tabla+";";
         try {
             // Se genera la sentencia
             PreparedStatement sentencia = conexion.prepareStatement(borrarTabla);
@@ -45,7 +44,7 @@ public class Tablas {
 
     public boolean CrearTablaUsuario(Connection conexion) {
         String crearUnaTabla = "create table Usuarios(ID_Usuarios int unsigned auto_increment,Matricula mediumint unsigned, Password varchar(40) not null,  Nombre varchar(100),  Apellido varchar(100), TipoUsuario varchar(100),  primary key(ID_Usuarios) );";
-        BorrarTabla(conexion,"Usuario");
+        BorrarTabla(conexion, "Usuarios");
     try {
             // Se genera la sentencia
             PreparedStatement sentencia = conexion.prepareStatement(crearUnaTabla);
@@ -59,7 +58,7 @@ public class Tablas {
     }
     
     public boolean CrearTablaCRUDDatos(Connection conexion) {
-        String crearUnaTabla = "create table CRUD_Datos(ID_Registro int unsigned auto_increment, Hora varchar(20) not null, Fecha varchar(20) not null,   Estatus varchar(100), Ruta varchar(100), Matricula mediumint unsigned,NumCamion mediumint unsigned,  primary key(ID_Registro) );";
+        String crearUnaTabla = "create table CRUD_Datos(ID_Registro int unsigned auto_increment, Hora varchar(20) not null,Fecha varchar(100) not null,Estatus varchar(100), Ruta varchar(100),Concesionaria varchar(100), Matricula mediumint unsigned,NumCamion mediumint unsigned,primary key(ID_Registro) );";
         BorrarTabla(conexion,"CRUD_Datos");
         try {
             // Se genera la sentencia
@@ -100,8 +99,8 @@ public class Tablas {
             num = rnd.nextInt(11)+1;
         fecha += Integer.toString(num) + "/19";
         
-               String dataTemporalC = "INSERT INTO lc78dKy0WL.CRUD_Datos(Hora, Fecha,Estatus,Ruta,Matricula,NumCamion) VALUES "
-                + "('" + hora + "','" + fecha+ "','" + sta + "', '" + rut + "','" + mat +"','" + camion + "');";
+               String dataTemporalC = "INSERT INTO lc78dKy0WL.CRUD_Datos(Hora, Fecha,Estatus,Ruta,Concesionaria,Matricula,NumCamion) VALUES "
+                + "('" + hora + "','" + fecha+ "','" + sta + "', '" + rut + "','RCJ','"+ mat +"','" + camion + "');";
         try {
             // Se genera la sentencia
             PreparedStatement sentencia = conexion.prepareStatement(dataTemporalC);
@@ -114,6 +113,7 @@ public class Tablas {
         return false;
     }
 
+    
     public boolean LlenarTablaUsuarios(Connection conexion) {
         Random rnd = new Random();
 
@@ -144,19 +144,55 @@ public class Tablas {
         return false;
     }
     
-    public boolean login(Connection conexion,Usuarios usuario) {
+    public boolean login(Connection conexion, Usuarios usuario) {
         ResultSet rs = null;
-        String base = "SELECT password FROM lc78dKy0WL.Usuarios WHERE matricula='"+usuario.getMatricula()+"'";
+        String base = "SELECT password FROM lc78dKy0WL.Usuarios WHERE matricula='" + usuario.getMatricula() + "'";
         //Se conjunta la base con la estructura elegida
         try {
             PreparedStatement sentencia = conexion.prepareStatement(base);
             rs = sentencia.executeQuery(base);
             while (rs.next()) {
-                System.out.println("Base de datos="+rs.getString("Password"));
-                if (rs.getString("Password").equals(usuario.getPassword())) return true;
+                System.out.println("Base de datos=" + rs.getString("Password"));
+                if (rs.getString("Password").equals(usuario.getPassword()))
+                    return true;
             }
         } catch (SQLException sqle) {
-    }
+        }
         return false;
+    }
+
+    public boolean CrudDatosGuardar(Connection conexion,Datos datos) {
+               String data = "INSERT INTO lc78dKy0WL.CRUD_Datos(Hora, Fecha,Estatus,Ruta,Concesionaria,Matricula,NumCamion) VALUES "
+                + "('" + datos.getHora()+ "','" + datos.getFecha()+ "','" + datos.getEstatus() + "', '" + datos.getRuta() + "','" + datos.getConsecionaria() + "','"+ datos.getMatricula() +"','" + datos.getNumcamion()+ "');";
+        try {
+            // Se genera la sentencia
+            PreparedStatement sentencia = conexion.prepareStatement(data);
+            int res = sentencia.executeUpdate();
+            return true;
+        } catch (SQLException sqle) {
+            // solo depuracion se genera el codigo de error
+            System.out.println("Instrucción incorrecta:" + sqle.getErrorCode() + " " + sqle.getMessage());
+        }
+        return false;
+    }
+
+    
+      public boolean CrudUsuarioGuardar(Connection conexion,Usuarios usuario) {
+               String data = "INSERT INTO lc78dKy0WL.Usuarios(Matricula, Password, Nombre, Apellido, TipoUsuario) VALUES "
+                + "('" + usuario.getMatricula()+ "','" + usuario.getPassword()+ "','" +usuario.getNombre() + "', '" +usuario.getApellido() + "','" + usuario.getTipoUsuario()+ "');";
+        try {
+            // Se genera la sentencia
+            PreparedStatement sentencia = conexion.prepareStatement(data);
+            int res = sentencia.executeUpdate();
+            return true;
+        } catch (SQLException sqle) {
+            // solo depuracion se genera el codigo de error
+            System.out.println("Instrucción incorrecta:" + sqle.getErrorCode() + " " + sqle.getMessage());
+        }
+        return false;
+    }
+
 }
-}
+
+
+

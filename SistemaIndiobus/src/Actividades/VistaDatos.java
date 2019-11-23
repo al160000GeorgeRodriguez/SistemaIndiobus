@@ -12,6 +12,26 @@ import Menu.Menu;
  * @author compu
  */
 public class VistaDatos extends javax.swing.JFrame {
+    
+    private String Fechainicial;
+    private String Fechafinal;
+
+    public String getFechainicial() {
+        return Fechainicial;
+    }
+
+    public void setFechainicial(String Fechainicial) {
+        this.Fechainicial = Fechainicial;
+    }
+
+    public String getFechafinal() {
+        return Fechafinal;
+    }
+
+    public void setFechafianl(String Fechafinal) {
+        this.Fechafinal = Fechafinal;
+    }
+    
 
     /**
      * Creates new form VistaDatos
@@ -29,10 +49,10 @@ public class VistaDatos extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        ExportatPDF = new javax.swing.JButton();
         jSpinner1 = new javax.swing.JSpinner();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        RegresarVista = new javax.swing.JButton();
+        BuscarVista = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         scrollPane1 = new java.awt.ScrollPane();
@@ -42,18 +62,23 @@ public class VistaDatos extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("ExportarPDF");
+        ExportatPDF.setText("ExportarPDF");
 
         jSpinner1.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), new java.util.Date(), null, java.util.Calendar.DAY_OF_YEAR));
 
-        jButton2.setText("Regresar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        RegresarVista.setText("Regresar");
+        RegresarVista.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                RegresarVistaActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Buscar");
+        BuscarVista.setText("Buscar");
+        BuscarVista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BuscarVistaActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Fecha Inicial:");
 
@@ -131,7 +156,7 @@ public class VistaDatos extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton2)
+                        .addComponent(RegresarVista)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -143,12 +168,12 @@ public class VistaDatos extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)))
-                            .addComponent(jButton3)
-                            .addComponent(jButton1))
+                            .addComponent(BuscarVista)
+                            .addComponent(ExportatPDF))
                         .addGap(0, 155, Short.MAX_VALUE))))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton1, jButton2, jButton3});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {BuscarVista, ExportatPDF, RegresarVista});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -165,22 +190,26 @@ public class VistaDatos extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jButton3)
+                .addComponent(BuscarVista)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(ExportatPDF)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2)
+                .addComponent(RegresarVista)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-Menu ir = new Menu();
-ir.setVisible(true);
-this.dispose();        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void RegresarVistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegresarVistaActionPerformed
+        Menu ir = new Menu();
+        ir.setVisible(true);
+        this.dispose();        // TODO add your handling code here:
+    }//GEN-LAST:event_RegresarVistaActionPerformed
+
+    private void BuscarVistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarVistaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BuscarVistaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -218,9 +247,9 @@ this.dispose();        // TODO add your handling code here:
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton BuscarVista;
+    private javax.swing.JButton ExportatPDF;
+    private javax.swing.JButton RegresarVista;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
