@@ -238,15 +238,12 @@ public class Tablas {
                 busqueda += " AND ";
             busqueda += "(NumCamion='" + datosaux.getNumcamion() + "')";
         }
-        
-        busqueda = base + busqueda;
-        //String Sfinal = " ORDER BY id ASC";
+
         // Se conjunta la base con la estructura elegida
         busqueda = base + busqueda;
         System.out.println(busqueda);
         try {
             PreparedStatement sentencia = conexion.prepareStatement(busqueda);
-            // sentencia.setString(1,Nombre);
             rs = sentencia.executeQuery();
         } catch (SQLException sqle) {
             // solo depuracion

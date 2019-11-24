@@ -444,9 +444,11 @@ public class CrudDatos extends javax.swing.JFrame {
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
         ResultSet rs = null;
         Object matris[][] = new Object[lista.size()][8];
-
+        
         Datos datos= new  Datos( Integer.parseInt(IDCrudDatos.getText()),HoraCrudDatos.getText(),Fecha.getValue().toString(),Estatus.getSelectedItem().toString(),Ruta.getSelectedItem().toString(),Concesionaria.getText(),Integer.parseInt(MatriculaCrudDatos.getText()),Integer.parseInt(NoCamion.getText()));
+        iniciarBaseDatos();
         rs = tabla.CrudDatosBuscar(miConexion, datos);
+        cerrarConexion();
         int i = 0;
         try {
             while (rs.next()) {
