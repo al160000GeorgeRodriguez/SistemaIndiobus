@@ -385,6 +385,11 @@
           <SpinnerModel initial="now" stepSize="5" type="date"/>
         </Property>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JSpinner(sm)"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="Date date=new Date();&#xa;SpinnerDateModel sm=new SpinnerDateModel(date,date,date,Calendar.DAY_OF_MONTH);"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="JSpinner.DateEditor de =new JSpinner.DateEditor(Fecha,&quot;dd/MM/yy&quot;);&#xa;Fecha.setEditor(de);"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JComboBox" name="Estatus">
       <Properties>

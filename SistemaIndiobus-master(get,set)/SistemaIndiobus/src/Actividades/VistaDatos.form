@@ -29,7 +29,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="RegresarVista" linkSize="1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="197" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -40,14 +40,14 @@
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jSpinner2" pref="109" max="32767" attributes="0"/>
-                                  <Component id="jSpinner1" max="32767" attributes="0"/>
+                                  <Component id="jSpinner1" pref="100" max="32767" attributes="0"/>
+                                  <Component id="jSpinner2" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <Component id="BuscarVista" linkSize="1" min="-2" max="-2" attributes="0"/>
                           <Component id="ExportatPDF" linkSize="1" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="0" pref="114" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="123" max="32767" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -90,9 +90,14 @@
     <Component class="javax.swing.JSpinner" name="jSpinner1">
       <Properties>
         <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="new javax.swing.SpinnerDateModel(new java.util.Date(), null, java.util.Calendar.DAY_OF_YEAR)" type="code"/>
+          <Connection code="new javax.swing.SpinnerDateModel()" type="code"/>
         </Property>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JSpinner(sm)"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="Date date=new Date();&#xa;SpinnerDateModel sm=new SpinnerDateModel(date,date,date,Calendar.DAY_OF_MONTH);"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="JSpinner.DateEditor de =new JSpinner.DateEditor(jSpinner1,&quot;dd/MM/yy&quot;);&#xa;jSpinner1.setEditor(de);"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="RegresarVista">
       <Properties>
@@ -153,10 +158,15 @@
     </Container>
     <Component class="javax.swing.JSpinner" name="jSpinner2">
       <Properties>
-        <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-          <SpinnerModel initial="now" stepSize="5" type="date"/>
+        <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="new javax.swing.SpinnerDateModel()" type="code"/>
         </Property>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JSpinner(sm2)"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="SpinnerDateModel sm2=new SpinnerDateModel(date,null,null,Calendar.DAY_OF_MONTH);"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="JSpinner.DateEditor de2 =new JSpinner.DateEditor(jSpinner2,&quot;dd/MM/yy&quot;);&#xa;jSpinner2.setEditor(de2);"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>

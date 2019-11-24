@@ -23,6 +23,10 @@ import conectame.valoresConexion;
 import Menu.Menu;
 import Actividades.Datos;
 import java.sql.ResultSet;
+import java.util.Calendar;
+import java.util.Date;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerDateModel;
 public class CrudDatos extends javax.swing.JFrame {
     
     int ID_Registro;
@@ -101,7 +105,9 @@ public class CrudDatos extends javax.swing.JFrame {
         Ruta = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        Fecha = new javax.swing.JSpinner();
+        Date date=new Date();
+        SpinnerDateModel sm=new SpinnerDateModel(date,date,date,Calendar.DAY_OF_MONTH);
+        Fecha = new javax.swing.JSpinner(sm);
         Estatus = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -243,6 +249,8 @@ public class CrudDatos extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
+        JSpinner.DateEditor de =new JSpinner.DateEditor(Fecha,"dd/MM/yy");
+        Fecha.setEditor(de);
         Fecha.setModel(new javax.swing.SpinnerDateModel());
 
         Estatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "entrada", "salida", " " }));

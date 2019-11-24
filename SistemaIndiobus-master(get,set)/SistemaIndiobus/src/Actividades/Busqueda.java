@@ -8,6 +8,10 @@ package Actividades;
 import Menu.Menu;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Calendar;
+import java.util.Date;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerDateModel;
 
 /**
  *
@@ -39,7 +43,9 @@ public class Busqueda extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         Nocamion = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        Fecha = new javax.swing.JSpinner();
+        Date date=new Date();
+        SpinnerDateModel sm=new SpinnerDateModel(date,date,date,Calendar.DAY_OF_MONTH);
+        Fecha = new javax.swing.JSpinner(sm);
         Hora = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         Entrada = new javax.swing.JRadioButton();
@@ -83,7 +89,9 @@ public class Busqueda extends javax.swing.JFrame {
 
         jLabel7.setText("No.Camión");
 
-        Fecha.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(1574133804489L), new java.util.Date(1574133772536L), new java.util.Date(1574133804489L), java.util.Calendar.DAY_OF_YEAR));
+        JSpinner.DateEditor de =new JSpinner.DateEditor(Fecha,"dd/MM/yy");
+        Fecha.setEditor(de);
+        Fecha.setModel(new javax.swing.SpinnerDateModel());
 
         Hora.setText("08:00 PM");
 
