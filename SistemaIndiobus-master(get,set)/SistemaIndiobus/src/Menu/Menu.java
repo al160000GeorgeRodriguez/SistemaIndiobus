@@ -123,7 +123,7 @@ public class Menu extends javax.swing.JFrame {
 
         CrudDatos ir = new CrudDatos();
         ir.setVisible(true);  
-        this.setVisible(true);
+        this.dispose();
 // TODO add your handling code here:
 
     }//GEN-LAST:event_BcapturasActionPerformed

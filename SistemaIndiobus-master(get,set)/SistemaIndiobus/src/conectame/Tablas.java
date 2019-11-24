@@ -157,6 +157,7 @@ public class Tablas {
                     return true;
             }
         } catch (SQLException sqle) {
+            System.out.println("Instrucción incorrecta:" + sqle.getErrorCode() + " " + sqle.getMessage());
         }
         return false;
     }

@@ -10,6 +10,8 @@ import conectame.Tablas;
 import java.sql.Connection;
 import javax.swing.JOptionPane;
 import Actividades.CRUD_Usuarios.Usuarios;
+import Menu.Menu;
+import java.lang.String;
 /**
  *
  * @author compu
@@ -79,7 +81,7 @@ public class Login extends javax.swing.JFrame {
         setBackground(new java.awt.Color(0, 0, 153));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        user.setText("150204");
+        user.setText("119085");
         user.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 userActionPerformed(evt);
@@ -91,7 +93,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        Password.setText("12491");
+        Password.setText("Vicente123");
 
         jLabel1.setText("Usuario:");
 
@@ -105,7 +107,6 @@ public class Login extends javax.swing.JFrame {
         });
 
         Salir.setBackground(new java.awt.Color(0, 51, 255));
-        Salir.setForeground(new java.awt.Color(51, 51, 255));
         Salir.setText("Salir");
         Salir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -172,18 +173,20 @@ public class Login extends javax.swing.JFrame {
 
     private void IniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IniciarActionPerformed
        iniciarBaseDatos();
-        
         Usuarios usuario = new Usuarios();
-        Tablas tabla = new Tablas();
         usuario.setMatricula(Integer.parseInt(user.getText()));
         usuario.setPassword(Password.getText());
         System.out.println(usuario.getPassword());
-        if (tabla.login(miConexion, usuario))
-            System.out.println("Aceptado");
-            else 
+        if (tabla.login(miConexion, usuario)){
+        Menu ir = new Menu();
+        ir.setVisible(true);  
+        this.dispose();
+        System.out.println("Aceptado");
+        }
+        else 
             System.out.println("Rechazado");
         cerrarConexion(); 
-       
+
     }//GEN-LAST:event_IniciarActionPerformed
 
     private void SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirActionPerformed
