@@ -64,7 +64,7 @@ public class VistaDatos extends javax.swing.JFrame {
 
         ExportatPDF.setText("ExportarPDF");
 
-        jSpinner1.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), new java.util.Date(), null, java.util.Calendar.DAY_OF_YEAR));
+        jSpinner1.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), null, java.util.Calendar.DAY_OF_YEAR));
 
         RegresarVista.setText("Regresar");
         RegresarVista.addActionListener(new java.awt.event.ActionListener() {
@@ -161,11 +161,11 @@ public class VistaDatos extends javax.swing.JFrame {
                                     .addComponent(jLabel1))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)))
+                                    .addComponent(jSpinner2, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
+                                    .addComponent(jSpinner1)))
                             .addComponent(BuscarVista)
                             .addComponent(ExportatPDF))
-                        .addGap(0, 155, Short.MAX_VALUE))))
+                        .addGap(0, 114, Short.MAX_VALUE))))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {BuscarVista, ExportatPDF, RegresarVista});

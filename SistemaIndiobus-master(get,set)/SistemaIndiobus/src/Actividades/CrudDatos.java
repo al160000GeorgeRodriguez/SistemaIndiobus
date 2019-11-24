@@ -105,6 +105,11 @@ public class CrudDatos extends javax.swing.JFrame {
         Estatus = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         IDCrudDatos.setText("1");
         IDCrudDatos.addActionListener(new java.awt.event.ActionListener() {
@@ -442,36 +447,6 @@ public class CrudDatos extends javax.swing.JFrame {
     }//GEN-LAST:event_RutaActionPerformed
 
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
-        ResultSet rs = null;
-        Object matris[][] = new Object[lista.size()][8];
-        
-        Datos datos= new  Datos( Integer.parseInt(IDCrudDatos.getText()),HoraCrudDatos.getText(),Fecha.getValue().toString(),Estatus.getSelectedItem().toString(),Ruta.getSelectedItem().toString(),Concesionaria.getText(),Integer.parseInt(MatriculaCrudDatos.getText()),Integer.parseInt(NoCamion.getText()));
-        iniciarBaseDatos();
-        rs = tabla.CrudDatosBuscar(miConexion, datos);
-        cerrarConexion();
-        int i = 0;
-        try {
-            while (rs.next()) {
-                matris[i][0] = lista.get(i).getIDcruddatos();
-                matris[i][1] = lista.get(i).getHora();
-                matris[i][2] = lista.get(i).getFecha();
-                matris[i][3] = lista.get(i).getEstatus();
-                matris[i][4] = lista.get(i).getRuta();
-                matris[i][5] = lista.get(i).getConsecionaria();
-                matris[i][6] = lista.get(i).getMatricula();
-                matris[i][7] = lista.get(i).getNumcamion();
-                i++;
-            }
-
-            if (i == 0){                System.out.println("Sin resultados");}
-            else {             jTable1.setModel(new javax.swing.table.DefaultTableModel(matris, new String[] { "ID", "Hora", "Fecha",
-                    "Estatus", "Ruta", "Concesionaria", "Matricula", "No.Camion" }));}
-
-                
-        } catch (SQLException sqle) {
-            // solo depuracion
-            System.out.println("Instrucción incorrecta:" + sqle.getErrorCode() + " " + sqle.getMessage());
-        }
 
     }//GEN-LAST:event_buscarActionPerformed
 
@@ -565,6 +540,12 @@ public class CrudDatos extends javax.swing.JFrame {
             }
         ));
     }//GEN-LAST:event_eliminarActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+              Menu ir = new Menu();
+        ir.setVisible(true);
+        this.dispose(); 
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments

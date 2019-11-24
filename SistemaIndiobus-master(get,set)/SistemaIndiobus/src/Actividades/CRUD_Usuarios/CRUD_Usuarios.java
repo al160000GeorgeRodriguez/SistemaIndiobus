@@ -100,6 +100,11 @@ public class CRUD_Usuarios extends javax.swing.JFrame {
         regresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         TB.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -373,6 +378,12 @@ Usuarios crud = new Usuarios(id_usuario,matricula,password,nombre,apellido,tipou
         } catch (Exception e) {
         }
     }//GEN-LAST:event_modificarActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+                Menu ir = new Menu();
+        ir.setVisible(true);
+        this.dispose(); 
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments
