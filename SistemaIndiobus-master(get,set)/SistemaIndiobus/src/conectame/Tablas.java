@@ -79,12 +79,13 @@ public class Tablas {
         String status[] = { "Entrada", "Salida" };
         String rutas[] = { "Torres Henequen", "Torres libramiento","Plaza Juarez", "Independencia",
                 "Misiones", "Aztecas", "Centro", "Panamericana" };
-        
+                String meses[] = {"Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"};
         String mat = matricula[rnd.nextInt(9)];
-        String sta = status[rnd.nextInt(1)];
+        String sta = status[rnd.nextInt(2)];
         String rut = rutas[rnd.nextInt(7)];
         String hora,fecha,camion;
         Integer num;
+        
         do{
        num = rnd.nextInt(20);
         } while(num<8);
@@ -96,8 +97,8 @@ public class Tablas {
         camion = Integer.toString(num);
             num = rnd.nextInt(27)+1;
         fecha = Integer.toString(num) + "/";
-            num = rnd.nextInt(11)+1;
-        fecha += Integer.toString(num) + "/19";
+            num = rnd.nextInt(12);
+        fecha += meses[num] + "/19";
         
                String dataTemporalC = "INSERT INTO lc78dKy0WL.CRUD_Datos(Hora, Fecha,Estatus,Ruta,Concesionaria,Matricula,NumCamion) VALUES "
                 + "('" + hora + "','" + fecha+ "','" + sta + "', '" + rut + "','RCJ','"+ mat +"','" + camion + "');";
@@ -191,7 +192,21 @@ public class Tablas {
         }
         return false;
     }
-        
+        public ResultSet CrudDatosListarTodo(Connection conexion) {
+        // Se crea la variable para resultados
+        ResultSet rs = null;
+        String busqueda = "SELECT ID_Registro,Hora, Fecha,Estatus,Ruta,Concesionaria,Matricula,NumCamion FROM lc78dKy0WL.CRUD_Datos";
+        try {
+            PreparedStatement sentencia = conexion.prepareStatement(busqueda);
+            rs = sentencia.executeQuery();
+        } catch (SQLException sqle) {
+            // solo depuracion
+            System.out.println("Instrucción incorrecta:" + sqle.getErrorCode() + " " + sqle.getMessage());
+        }
+        //     conexion.cerrarConexion();
+        return rs;
+               }
+               
         public ResultSet CrudDatosBuscar(Connection conexion,Datos datos) {
         // Se crea la variable para resultados
         ResultSet rs = null;
@@ -216,7 +231,9 @@ public class Tablas {
             busqueda += "(Fecha='" + datosaux.getFecha() + "')";
             sentenciaPrevia=true;
         }
-        if (!datosaux.getEstatus().isEmpty()) {
+            System.out.println("datosaux.getEstatus()="+datosaux.getEstatus());
+            System.out.println("datosaux.getEstatus().length()="+datosaux.getEstatus().length());
+        if (!(datosaux.getEstatus().isEmpty() )) {
             if(sentenciaPrevia)
                 busqueda += " AND ";
             busqueda += "(Estatus='" + datosaux.getEstatus() + "')";

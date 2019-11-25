@@ -31,6 +31,9 @@ public class Datos {
         this.matricula = matricula;
         this.numcamion = numcamion;
     }
+     public Datos(){
+         
+     }
 
     public int getIDcruddatos() {
         return ID_Registro;

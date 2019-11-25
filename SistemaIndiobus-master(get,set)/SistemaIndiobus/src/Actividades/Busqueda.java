@@ -12,11 +12,17 @@ import java.util.Calendar;
 import java.util.Date;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
-
+import conectame.Tablas;
+import Actividades.Datos;
+import java.util.ArrayList;
+import conectame.Tablas;
+import conectame.Conexion;
+import java.sql.Connection;
 /**
  *
  * @author compu
  */
+
 public class Busqueda extends javax.swing.JFrame {
 
     /**
@@ -328,7 +334,31 @@ public class Busqueda extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+ Tablas tabla = new Tablas();
+     ArrayList<Datos> lista = new ArrayList<Datos>(); 
+         Conexion conexion = new Conexion();
+    private Connection miConexion = null;
+    void iniciarBaseDatos() {
+        //https://remotemysql.com/phpmyadmin/index.php
+        conexion.setUsuario("lc78dKy0WL");
+        conexion.setPassword("o4sjumW5GZ");
+        conexion.setTipo("mysql");
+        conexion.setURL("remotemysql.com");
+        conexion.setPuerto(3306);
+        conexion.setDbase("lc78dKy0WL");
+        conexion.setOpciones("autoReconnect=true&useSSL=false");
+        //Se manada a llamar la conexion
+        miConexion = conexion.conexionDB();
+      // tabla.CrearTablaCRUDDatos(miConexion);
+        //tabla.CrearTablaUsuario(miConexion);
+        tabla.LlenarTablaCRUDDatos(miConexion);
+        tabla.LlenarTablaUsuarios(miConexion);
 
+    }
+
+    void cerrarConexion() {
+          conexion.cerrarConexion();  
+    }
     private void SalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalidaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_SalidaActionPerformed
@@ -375,13 +405,34 @@ if(Character.isLetter(validar)){
     }//GEN-LAST:event_NocamionKeyTyped
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-      /*  ResultSet rs = null;
+              ID_Registro= Integer.parseInt(ID.getText());
+        hora = Hora.getText();
+        fecha = Fecha.getValue().toString();
+        fecha=fecha.substring(8,10)+fecha.substring(4,7)+fecha.substring(26,28);
+        if (Entrada.isSelected()){
+            estatus="Entrada";
+        }else estatus="";
+        if (Salida.isSelected()){
+            estatus="Salida";
+        }
+        ruta= Ruta.getSelectedItem().toString();
+        matricula= Integer.parseInt(Matricula.getText());
+        numcamion= Integer.parseInt(Nocamion.getText());
+        
+        System.out.println(""+ID_Registro);
+        System.out.println(""+hora);
+        System.out.println(""+fecha);
+        System.out.println(""+estatus);
+        System.out.println(""+ruta);
+        System.out.println(""+matricula);
+        System.out.println(""+numcamion);
+          ResultSet rs = null;
         Object matris[][] = new Object[lista.size()][8];
         
-        Datos datos= new  Datos( Integer.parseInt(IDCrudDatos.getText()),HoraCrudDatos.getText(),Fecha.getValue().toString(),Estatus.getSelectedItem().toString(),Ruta.getSelectedItem().toString(),Concesionaria.getText(),Integer.parseInt(MatriculaCrudDatos.getText()),Integer.parseInt(NoCamion.getText()));
+        Datos datos= new  Datos( ID_Registro,hora,fecha,estatus,ruta,Concesionaria.getText(),matricula,numcamion);
         iniciarBaseDatos();
         rs = tabla.CrudDatosBuscar(miConexion, datos);
-        cerrarConexion();
+
         int i = 0;
         try {
             while (rs.next()) {
@@ -404,27 +455,8 @@ if(Character.isLetter(validar)){
         } catch (SQLException sqle) {
             // solo depuracion
             System.out.println("Instrucción incorrecta:" + sqle.getErrorCode() + " " + sqle.getMessage());
-        }*/
-        ID_Registro= Integer.parseInt(ID.getText());
-        hora = Hora.getText();
-        fecha = Fecha.getValue().toString();
-        if (Entrada.isSelected()){
-            estatus="Entrada";
         }
-        if (Salida.isSelected()){
-            estatus="Salida";
-        }
-        ruta= Ruta.getSelectedItem().toString();
-        matricula= Integer.parseInt(Matricula.getText());
-        numcamion= Integer.parseInt(Nocamion.getText());
-        
-        System.out.println(""+ID_Registro);
-        System.out.println(""+hora);
-        System.out.println(""+fecha);
-        System.out.println(""+estatus);
-        System.out.println(""+ruta);
-        System.out.println(""+matricula);
-        System.out.println(""+numcamion);
+                cerrarConexion();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
@@ -495,3 +527,30 @@ if(Character.isLetter(validar)){
     private java.awt.ScrollPane scrollPane1;
     // End of variables declaration//GEN-END:variables
 }
+/*Datos datos= new  Datos( Integer.parseInt(IDCrudDatos.getText()),HoraCrudDatos.getText(),Fecha.getValue().toString(),Estatus.getSelectedItem().toString(),Ruta.getSelectedItem().toString(),Concesionaria.getText(),Integer.parseInt(MatriculaCrudDatos.getText()),Integer.parseInt(NoCamion.getText()));
+        iniciarBaseDatos();
+        rs = tabla.CrudDatosBuscar(miConexion, datos);
+        cerrarConexion();
+        int i = 0;
+        try {
+            while (rs.next()) {
+                matris[i][0] = lista.get(i).getIDcruddatos();
+                matris[i][1] = lista.get(i).getHora();
+                matris[i][2] = lista.get(i).getFecha();
+                matris[i][3] = lista.get(i).getEstatus();
+                matris[i][4] = lista.get(i).getRuta();
+                matris[i][5] = lista.get(i).getConsecionaria();
+                matris[i][6] = lista.get(i).getMatricula();
+                matris[i][7] = lista.get(i).getNumcamion();
+                i++;
+            }
+
+            if (i == 0){                System.out.println("Sin resultados");}
+            else {             jTable1.setModel(new javax.swing.table.DefaultTableModel(matris, new String[] { "ID", "Hora", "Fecha",
+                    "Estatus", "Ruta", "Concesionaria", "Matricula", "No.Camion" }));}
+
+                
+        } catch (SQLException sqle) {
+            // solo depuracion
+            System.out.println("Instrucción incorrecta:" + sqle.getErrorCode() + " " + sqle.getMessage());
+        }*/
