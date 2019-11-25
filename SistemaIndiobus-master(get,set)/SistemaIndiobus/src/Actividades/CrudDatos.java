@@ -74,8 +74,7 @@ rellenarDatos();
         Datos datos=new Datos();
            datos.setIDcruddatos(Integer.parseInt(rs.getString("ID_Registro")));
                System.out.println("ID_Registro="+Integer.parseInt(rs.getString("ID_Registro")));
-           IDCrudDatos.setText(String.valueOf(Integer.parseInt(rs.getString("ID_Registro"))+1));
-               
+           IDCrudDatos.setText(String.valueOf(Integer.parseInt(rs.getString("ID_Registro"))+1));    
            datos.setHora(rs.getString("Hora"));
            datos.setFecha(rs.getString("Fecha"));
            datos.setEstatus(rs.getString("Estatus"));

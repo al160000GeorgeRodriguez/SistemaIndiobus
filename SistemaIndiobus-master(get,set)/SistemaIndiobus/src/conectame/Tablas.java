@@ -206,6 +206,20 @@ public class Tablas {
         //     conexion.cerrarConexion();
         return rs;
                }
+        public ResultSet CrudUsuariosListarTodo(Connection conexion) {
+        // Se crea la variable para resultados
+        ResultSet rs = null;
+        String busqueda = "SELECT ID_Usuarios,Matricula, Password,Nombre,Apellido,TipoUsuario FROM lc78dKy0WL.Usuarios";
+        try {
+            PreparedStatement sentencia = conexion.prepareStatement(busqueda);
+            rs = sentencia.executeQuery();
+        } catch (SQLException sqle) {
+            // solo depuracion
+            System.out.println("Instrucción incorrecta:" + sqle.getErrorCode() + " " + sqle.getMessage());
+        }
+        //     conexion.cerrarConexion();
+        return rs;
+               }
                
         public ResultSet CrudDatosBuscar(Connection conexion,Datos datos) {
         // Se crea la variable para resultados
