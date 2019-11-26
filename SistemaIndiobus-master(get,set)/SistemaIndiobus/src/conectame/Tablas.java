@@ -322,6 +322,42 @@ public class Tablas {
         }
                 return false;
                 }
+        public Boolean BorrarDatos(Connection conexion,Datos dato) {
+            //ID_Registro,Hora, Fecha,Estatus,Ruta,Concesionaria,Matricula,NumCamion FROM lc78dKy0WL.CRUD_Datos
+                    String BorrarData = "DELETE FROM lc78dKy0WL.CRUD_Datos WHERE ID_Registro="
+                + String.valueOf(dato.getIDcruddatos());
+                             System.out.println(BorrarData );
+                    try{
+            // Se genera la sentencia
+            Statement sentencia = conexion.createStatement();
+            // Se ejecutan la sentencias para procesarse por sql
+            sentencia.executeUpdate(BorrarData);
+            // sentencia.executeUpdate(crearTablaDocumentos);
+            return true;
+            } catch (SQLException sqle) {
+            // solo depuracion se genera el codigo de error
+            System.out.println("Instrucción incorrecta:" + sqle.getErrorCode() + " " + sqle.getMessage());
+        }
+                            return false;    
+        }
+        public Boolean BorrarUsuario(Connection conexion,Usuarios usuario) {
+             //SELECT ID_Usuarios,Matricula, Password,Nombre,Apellido,TipoUsuario FROM lc78dKy0WL.Usuarios
+                    String BorrarData = "DELETE FROM lc78dKy0WL.Usuarios WHERE ID_Registro="
+                + String.valueOf(usuario.getId_Usuarios());
+                             System.out.println(BorrarData );
+                    try{
+            // Se genera la sentencia
+            Statement sentencia = conexion.createStatement();
+            // Se ejecutan la sentencias para procesarse por sql
+            sentencia.executeUpdate(BorrarData);
+            // sentencia.executeUpdate(crearTablaDocumentos);
+            return true;
+            } catch (SQLException sqle) {
+            // solo depuracion se genera el codigo de error
+            System.out.println("Instrucción incorrecta:" + sqle.getErrorCode() + " " + sqle.getMessage());
+        }
+                            return false;    
+        }
                 
 }
 

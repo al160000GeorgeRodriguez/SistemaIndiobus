@@ -568,8 +568,16 @@ Ruta.addActionListener(new java.awt.event.ActionListener() {
     private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
        
         
-        
-        ID_Registro = Integer.parseInt(IDCrudDatos.getText());
+         Datos dato= new  Datos( Integer.parseInt(IDCrudDatos.getText()),HoraCrudDatos.getText(),Fecha.getValue().toString().substring(8,10)+"-"+Fecha.getValue().toString().substring(4,7)+"-"+Fecha.getValue().toString().substring(26,28),Estatus.getSelectedItem().toString(),Ruta.getSelectedItem().toString(),Concesionaria.getText(),Integer.parseInt(MatriculaCrudDatos.getText()),Integer.parseInt(NoCamion.getText()));
+        iniciarBaseDatos();
+         if(tabla.BorrarDatos(miConexion, dato))
+                System.out.println("Se eliminó el usuario");
+        else System.out.println("No se pudo eliminar");
+        cerrarConexion();
+        jTable1.removeAll();
+        rellenarDatos();
+
+     /*   ID_Registro = Integer.parseInt(IDCrudDatos.getText());
         for(int i=0; i<lista.size(); i++){
            if(ID_Registro == lista.get(i).getIDcruddatos()){
           lista.remove(i);
@@ -597,7 +605,7 @@ Ruta.addActionListener(new java.awt.event.ActionListener() {
             new String [] {
                 "ID", "Hora", "Fecha", "Estatus", "Ruta", "Concesionaria", "Matricula", "No.Camion"
             }
-        ));
+        ));*/
     }//GEN-LAST:event_eliminarActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed

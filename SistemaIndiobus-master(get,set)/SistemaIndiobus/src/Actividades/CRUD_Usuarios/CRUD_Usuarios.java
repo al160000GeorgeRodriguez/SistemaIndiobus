@@ -364,7 +364,24 @@ rellenarDatos();
     }//GEN-LAST:event_BuscarActionPerformed
 
     private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
-             id_usuario= Integer.parseInt(IDusuario.getText());
+// TODO add your handling code here:
+id_usuario= Integer.parseInt(IDusuario.getText());
+matricula= Integer.parseInt(Matricula.getText());
+password = Arrays.toString(Contrasena.getPassword());
+nombre= Nombre.getText();
+apellido= Apellido.getText();
+tipousuario = Tipousuario.getSelectedItem().toString();
+   
+        Usuarios usuario = new Usuarios(id_usuario,matricula,password,nombre,apellido,tipousuario);
+        iniciarBaseDatos();
+        if(tabla.BorrarUsuario(miConnection, usuario))
+                System.out.println("Se Borró el usuario");
+        else System.out.println("No se pudo Borrar");
+        cerrarConexion();
+        rellenarDatos();
+        
+        /*
+id_usuario= Integer.parseInt(IDusuario.getText());
 matricula= Integer.parseInt(Matricula.getText());
 password = Arrays.toString(Contrasena.getPassword());
 nombre= Nombre.getText();
@@ -372,11 +389,9 @@ apellido= Apellido.getText();
 tipousuario = Tipousuario.getSelectedItem().toString();       
         try {
 
-
-
 Usuarios crud = new Usuarios(id_usuario,matricula,password,nombre,apellido,tipousuario);
         } catch (Exception e) {
-        }
+        }*/
     }//GEN-LAST:event_eliminarActionPerformed
 
     private void crearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearActionPerformed
