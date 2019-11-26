@@ -285,6 +285,43 @@ public class Tablas {
         return rs;
 
         }
-
+        public Boolean ActualizarUsuarios(Connection conexion,Usuarios usuario) {
+                //SELECT ID_Usuarios,Matricula, Password,Nombre,Apellido,TipoUsuario FROM lc78dKy0WL.Usuarios
+                    String ActualizarData = "UPDATE lc78dKy0WL.Usuarios SET " + "Matricula=" + String.valueOf(usuario.getMatricula()) 
+                + ", Password='" + usuario.getPassword() + "', Nombre='" + usuario.getNombre() + "', Apellido='"
+                + usuario.getApellido()+ "', TipoUsuario='"+ usuario.getTipoUsuario() + "' WHERE ID_Usuarios=" + String.valueOf(usuario.getId_Usuarios());
+                    System.out.println(ActualizarData);
+                    try{
+            // Se genera la sentencia
+            Statement sentencia = conexion.createStatement();
+            // Se ejecutan la sentencias para procesarse por sql
+            sentencia.executeUpdate(ActualizarData);
+            // sentencia.executeUpdate(crearTablaDocumentos);
+            return true;
+            } catch (SQLException sqle) {
+            // solo depuracion se genera el codigo de error
+            System.out.println("Instrucción incorrecta:" + sqle.getErrorCode() + " " + sqle.getMessage());
+        }
+                return false;
+                }
+        
+                public Boolean ActualizarDatos(Connection conexion,Datos dato) {
+                    //ID_Registro,Hora, Fecha,Estatus,Ruta,Concesionaria,Matricula,NumCamion FROM lc78dKy0WL.CRUD_Datos
+                    String ActualizarData = "UPDATE lc78dKy0WL.CRUD_Datos SET " + "Hora='" + String.valueOf(dato.getHora())+ "', Fecha='" + dato.getFecha() + "', Ruta='" + dato.getRuta() + "', Concesionaria='"+ dato.getConsecionaria()+ "', Matricula='"+ dato.getMatricula()+"', "+" NumCamion='"+dato.getNumcamion() +  "' WHERE ID_Registro=" + String.valueOf(dato.getIDcruddatos());
+         System.out.println(ActualizarData );
+                    try{
+            // Se genera la sentencia
+            Statement sentencia = conexion.createStatement();
+            // Se ejecutan la sentencias para procesarse por sql
+            sentencia.executeUpdate(ActualizarData);
+            // sentencia.executeUpdate(crearTablaDocumentos);
+            return true;
+            } catch (SQLException sqle) {
+            // solo depuracion se genera el codigo de error
+            System.out.println("Instrucción incorrecta:" + sqle.getErrorCode() + " " + sqle.getMessage());
+        }
+                return false;
+                }
+                
 }
 

@@ -68,12 +68,12 @@ rellenarDatos();
     void rellenarDatos(){
         iniciarBaseDatos();
         ResultSet rs =tabla.CrudDatosListarTodo(miConexion);
+        
         try {
             int i=0; 
            while (rs.next()) {
         Datos datos=new Datos();
            datos.setIDcruddatos(Integer.parseInt(rs.getString("ID_Registro")));
-               System.out.println("ID_Registro="+Integer.parseInt(rs.getString("ID_Registro")));
            IDCrudDatos.setText(String.valueOf(Integer.parseInt(rs.getString("ID_Registro"))+1));    
            datos.setHora(rs.getString("Hora"));
            datos.setFecha(rs.getString("Fecha"));
@@ -86,7 +86,6 @@ rellenarDatos();
            i++;
                   }
          Object matris[][] = new Object[lista.size()][8];
-            
              for(int j=0; j<lista.size(); j++)
              {
                 matris[j][0] = lista.get(j).getIDcruddatos();                 
@@ -160,7 +159,6 @@ rellenarDatos();
             }
         });
 
-        IDCrudDatos.setEditable(false);
         IDCrudDatos.setText("1");
         IDCrudDatos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -505,8 +503,15 @@ Ruta.addActionListener(new java.awt.event.ActionListener() {
     }//GEN-LAST:event_buscarActionPerformed
 
     private void modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarActionPerformed
-   
-        ID_Registro = Integer.parseInt(IDCrudDatos.getText());
+   Datos dato= new  Datos( Integer.parseInt(IDCrudDatos.getText()),HoraCrudDatos.getText(),Fecha.getValue().toString().substring(8,10)+"-"+Fecha.getValue().toString().substring(4,7)+"-"+Fecha.getValue().toString().substring(26,28),Estatus.getSelectedItem().toString(),Ruta.getSelectedItem().toString(),Concesionaria.getText(),Integer.parseInt(MatriculaCrudDatos.getText()),Integer.parseInt(NoCamion.getText()));
+        iniciarBaseDatos();
+         if(tabla.ActualizarDatos(miConexion, dato))
+                System.out.println("Se actualizó el usuario");
+        else System.out.println("No se pudo actualizar");
+        cerrarConexion();
+        jTable1.removeAll();
+        rellenarDatos();
+        /*ID_Registro = Integer.parseInt(IDCrudDatos.getText());
         for(int i=0; i<lista.size(); i++){
            if(ID_Registro == lista.get(i).getIDcruddatos()){
            lista.get(i).setHora(HoraCrudDatos.getText());
@@ -550,7 +555,7 @@ Ruta.addActionListener(new java.awt.event.ActionListener() {
        HoraCrudDatos.setText("");
        MatriculaCrudDatos.setText("");
        MatriculaCrudDatos.setText("");
-       NoCamion.setText("");
+       NoCamion.setText("");*/
        
         
         

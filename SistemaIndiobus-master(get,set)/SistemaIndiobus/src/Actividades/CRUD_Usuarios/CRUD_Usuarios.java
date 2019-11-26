@@ -77,7 +77,6 @@ rellenarDatos();
            while (rs.next()) {
                //ID_Usuarios,Matricula, Password,Nombre,Apellido,TipoUsuario
         Usuarios usuario=new Usuarios(Integer.parseInt(rs.getString("ID_Usuarios")),Integer.parseInt(rs.getString("Matricula")),rs.getString("Password"),rs.getString("Nombre"),rs.getString("Apellido"),rs.getString("TipoUsuario"));
-               System.out.println("ID_Registro="+Integer.parseInt(rs.getString("ID_Usuarios")));
            IDusuario.setText(String.valueOf(Integer.parseInt(rs.getString("ID_Usuarios"))+1));    
            lista.add(i,usuario);
            i++;
@@ -183,7 +182,6 @@ rellenarDatos();
 
         jLabel1.setText("ID:");
 
-        IDusuario.setEditable(false);
         IDusuario.setText("1");
 
         Matricula.setText("150204");
@@ -366,9 +364,17 @@ rellenarDatos();
     }//GEN-LAST:event_BuscarActionPerformed
 
     private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
-        // TODO add your handling code here:
+             id_usuario= Integer.parseInt(IDusuario.getText());
+matricula= Integer.parseInt(Matricula.getText());
+password = Arrays.toString(Contrasena.getPassword());
+nombre= Nombre.getText();
+apellido= Apellido.getText();
+tipousuario = Tipousuario.getSelectedItem().toString();       
         try {
-            
+
+
+
+Usuarios crud = new Usuarios(id_usuario,matricula,password,nombre,apellido,tipousuario);
         } catch (Exception e) {
         }
     }//GEN-LAST:event_eliminarActionPerformed
@@ -414,9 +420,23 @@ Usuarios crud = new Usuarios(id_usuario,matricula,password,nombre,apellido,tipou
 
     private void modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarActionPerformed
         // TODO add your handling code here:
+            id_usuario= Integer.parseInt(IDusuario.getText());
+matricula= Integer.parseInt(Matricula.getText());
+password = Arrays.toString(Contrasena.getPassword());
+nombre= Nombre.getText();
+apellido= Apellido.getText();
+tipousuario = Tipousuario.getSelectedItem().toString();
         try {
-            
+        Usuarios usuario = new Usuarios(id_usuario,matricula,password,nombre,apellido,tipousuario);
+        iniciarBaseDatos();
+        if(tabla.ActualizarUsuarios(miConnection, usuario))
+                System.out.println("Se actualizó el usuario");
+        else System.out.println("No se pudo actualizar");
+        cerrarConexion();
+        rellenarDatos();
+        
         } catch (Exception e) {
+            
         }
     }//GEN-LAST:event_modificarActionPerformed
 
