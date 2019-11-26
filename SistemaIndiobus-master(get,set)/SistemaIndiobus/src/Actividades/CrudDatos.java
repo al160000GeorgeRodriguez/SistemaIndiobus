@@ -417,17 +417,23 @@ Ruta.addActionListener(new java.awt.event.ActionListener() {
        
         
         Datos crud= new  Datos( Integer.parseInt(IDCrudDatos.getText()),HoraCrudDatos.getText(),Fecha.getValue().toString().substring(8,10)+"/"+Fecha.getValue().toString().substring(4,7)+"/"+Fecha.getValue().toString().substring(26,28),Estatus.getSelectedItem().toString(),Ruta.getSelectedItem().toString(),Concesionaria.getText(),Integer.parseInt(MatriculaCrudDatos.getText()),Integer.parseInt(NoCamion.getText()));
-        lista.add(crud);
-        System.out.println(crud.fecha);
-              iniciarBaseDatos();
-        tabla.CrudDatosGuardar(miConexion, crud);
-        cerrarConexion();
-        Object matris[][] = new Object [lista.size()][8];
+       
+                 
       
-                  IDCrudDatos.setText(String.valueOf(Integer.parseInt(IDCrudDatos.getText())+1));
-        
-        for(int i=0; i<lista.size(); i++){
+       if (IDCrudDatos.getText().isEmpty()||HoraCrudDatos.getText().isEmpty()||Concesionaria.getText().isEmpty()||MatriculaCrudDatos.getText().isEmpty()||NoCamion.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this,"FALTA LLENAR UN CAMPO");
+        }else{
+            lista.add(crud);
+           System.out.println(crud.fecha);
+              iniciarBaseDatos();
+          tabla.CrudDatosGuardar(miConexion, crud);
+         cerrarConexion();
+         Object matris[][] = new Object [lista.size()][8];
+      
+            IDCrudDatos.setText(String.valueOf(Integer.parseInt(IDCrudDatos.getText())+1));
+          for(int i=0; i<lista.size(); i++){
            
+        
             
             matris[i][0]=lista.get(i).getIDcruddatos();
             matris[i][1]=lista.get(i).getHora();
@@ -446,6 +452,7 @@ Ruta.addActionListener(new java.awt.event.ActionListener() {
             }
         ));
        
+       }
         /*iniciarBaseDatos();
         CrudDatos d =new CrudDatos ();
         Tablas tabla= new Tablas();
@@ -568,16 +575,8 @@ Ruta.addActionListener(new java.awt.event.ActionListener() {
     private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
        
         
-         Datos dato= new  Datos( Integer.parseInt(IDCrudDatos.getText()),HoraCrudDatos.getText(),Fecha.getValue().toString().substring(8,10)+"-"+Fecha.getValue().toString().substring(4,7)+"-"+Fecha.getValue().toString().substring(26,28),Estatus.getSelectedItem().toString(),Ruta.getSelectedItem().toString(),Concesionaria.getText(),Integer.parseInt(MatriculaCrudDatos.getText()),Integer.parseInt(NoCamion.getText()));
-        iniciarBaseDatos();
-         if(tabla.BorrarDatos(miConexion, dato))
-                System.out.println("Se eliminó el usuario");
-        else System.out.println("No se pudo eliminar");
-        cerrarConexion();
-        jTable1.removeAll();
-        rellenarDatos();
-
-     /*   ID_Registro = Integer.parseInt(IDCrudDatos.getText());
+        
+        ID_Registro = Integer.parseInt(IDCrudDatos.getText());
         for(int i=0; i<lista.size(); i++){
            if(ID_Registro == lista.get(i).getIDcruddatos()){
           lista.remove(i);
@@ -605,7 +604,7 @@ Ruta.addActionListener(new java.awt.event.ActionListener() {
             new String [] {
                 "ID", "Hora", "Fecha", "Estatus", "Ruta", "Concesionaria", "Matricula", "No.Camion"
             }
-        ));*/
+        ));
     }//GEN-LAST:event_eliminarActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed

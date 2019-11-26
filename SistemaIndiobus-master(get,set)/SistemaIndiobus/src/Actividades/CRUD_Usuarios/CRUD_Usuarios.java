@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import javax.swing.JOptionPane;
 
 
 
@@ -21,6 +22,8 @@ import java.util.Arrays;
  *
  * @author compu
  */
+
+
 public class CRUD_Usuarios extends javax.swing.JFrame {
 
   
@@ -364,24 +367,7 @@ rellenarDatos();
     }//GEN-LAST:event_BuscarActionPerformed
 
     private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
-// TODO add your handling code here:
-id_usuario= Integer.parseInt(IDusuario.getText());
-matricula= Integer.parseInt(Matricula.getText());
-password = Arrays.toString(Contrasena.getPassword());
-nombre= Nombre.getText();
-apellido= Apellido.getText();
-tipousuario = Tipousuario.getSelectedItem().toString();
-   
-        Usuarios usuario = new Usuarios(id_usuario,matricula,password,nombre,apellido,tipousuario);
-        iniciarBaseDatos();
-        if(tabla.BorrarUsuario(miConnection, usuario))
-                System.out.println("Se Borró el usuario");
-        else System.out.println("No se pudo Borrar");
-        cerrarConexion();
-        rellenarDatos();
-        
-        /*
-id_usuario= Integer.parseInt(IDusuario.getText());
+             id_usuario= Integer.parseInt(IDusuario.getText());
 matricula= Integer.parseInt(Matricula.getText());
 password = Arrays.toString(Contrasena.getPassword());
 nombre= Nombre.getText();
@@ -389,9 +375,11 @@ apellido= Apellido.getText();
 tipousuario = Tipousuario.getSelectedItem().toString();       
         try {
 
+
+
 Usuarios crud = new Usuarios(id_usuario,matricula,password,nombre,apellido,tipousuario);
         } catch (Exception e) {
-        }*/
+        }
     }//GEN-LAST:event_eliminarActionPerformed
 
     private void crearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearActionPerformed
@@ -405,6 +393,10 @@ tipousuario = Tipousuario.getSelectedItem().toString();
 
 
 Usuarios crud = new Usuarios(id_usuario,matricula,password,nombre,apellido,tipousuario);
+     if (IDusuario.getText().isEmpty()||Matricula.getText().isEmpty()||Contrasena.getText().isEmpty()||Nombre.getText().isEmpty()||Apellido.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this,"FALTA LLENAR UN CAMPO");
+        } else{
+
         lista.add(crud);
         iniciarBaseDatos();
         tabla.CrudDatosGuardar(miConnection, crud);
@@ -430,6 +422,7 @@ Usuarios crud = new Usuarios(id_usuario,matricula,password,nombre,apellido,tipou
                 "ID Usuario", "Matricula", "Contraseña", "Nombre", "Apellido", "Tipo de Usuario"
             }
         ));
+     }
 
     }//GEN-LAST:event_crearActionPerformed
 
